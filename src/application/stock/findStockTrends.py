@@ -28,12 +28,10 @@ with warnings.catch_warnings():
 
 
 
-company = 'GOOG'
+company = 'TSLA'
 current_t=dt.date.today()
 
 
-##current_time_array=[endY,endM,endD]
-##time_in_year=timedelta(weeks=40, days=85)
 def makeDatePretty(dateArray):
     year=str(dateArray[0])
     month=str(dateArray[1])
@@ -65,12 +63,12 @@ def findStockTrends(comp=company, years=10, months=0, days=0):
     #start the data on jan 1st 2000
     start=dt.datetime(startDate[0], startDate[1], startDate[2])
     end=dt.datetime(current_time_array[0],current_time_array[1],current_time_array[2])
-    print(comp)
+    print(start)
+    print(end)
 
     #dataframe
     df=web.DataReader(comp, 'yahoo', start, end)
     #converting the data to a csv
-    #df.to_csv('google.csv')
     '''
         user_response=input('Do you want to create a file for the data? (Y/N)')
         if user_response.lower() =='y':
@@ -80,11 +78,6 @@ def findStockTrends(comp=company, years=10, months=0, days=0):
         print(df.head(10))
     '''
     print(df.head(10))
-
-    ##df['Low'].plot()
-    ##plt.show()
-    ##df['High'].plot()
-    ##plt.show()
 
     #adding a rolling average
     df['100 M.Avg']=df['Close'].rolling(window=100, min_periods=0).mean()
@@ -118,13 +111,11 @@ def findStockTrends(comp=company, years=10, months=0, days=0):
     df_ohlc.reset_index(inplace=True)
     df_ohlc['Date']=df_ohlc['Date'].map(mdates.date2num)
 
-
-    #print(df_ohlc.head())
-
     ax3= plt.subplot2grid((12,1), (6,0), rowspan=5, colspan=1, sharex=ax1)
     ax4= plt.subplot2grid((12,1), (11,0), rowspan=5, colspan=1, sharex=ax1)
     ax3.xaxis_date()
     ax4.fill_between(df_volume.index.map(mdates.date2num), df_volume.values, 0)
+    plt.autoscale(enable=True, axis='x', tight=None)
 
     plt.show()
 findStockTrends()
