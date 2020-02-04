@@ -2,10 +2,14 @@ import yfinance
 class Stock(object):
     def __init__(self, ticker='TSLA'):
         self.ticker = ticker
-        self.price = self.getCurrentPrice()
+        self.price = 1
     def getCurrentPrice(self):
+        # new = Stock(self.ticker)
+        # del self
+        # self = new
         ticker_socket = yfinance.Ticker(self.ticker)
-        return ticker_socket.get_info()['ask']
+        price = ticker_socket.get_info()['ask']
+        return price
     def getTicker(self):
         return self.ticker
     def getPrice(self):
