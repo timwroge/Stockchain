@@ -17,48 +17,38 @@
     <div class="row">
         <div class="col-md-4 col-sm-4 col-xs-12"></div>
         <div class="col-md-4 col-sm-4 col-xs-12">
-            <form class="form-container boxbg">
+            <form class="form-container">
                 <h1 align="center">Stockchain</h1>
-                <fieldset>
-                        <div class="control-group">
-                          <!-- Username -->
-                              <label class="control-label"  for="username">Username</label>
-                              <div class="controls">
-                                    <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-                                    <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-                              </div>
+                        <div class="group">
+                            <!-- Username -->       
+                            <input type="text" data-toggle="tooltip" data-placement="right" title="Username can contain any letters or numbers, without spaces"  id="username" placeholder=""/>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Username</label>
                         </div>
-                        <div class="control-group">
+                        <div class="group">
                           <!-- E-mail -->
-                              <label class="control-label" for="email">E-mail</label>
-                              <div class="controls">
-                                    <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
-                                    <p class="help-block">Please provide your E-mail</p>
-                              </div>
+                            <input type="email" data-toggle="tooltip" data-placement="right" title="Please provide your email" id="email" name="email" placeholder="">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Email</label>
                         </div>
-                        <div class="control-group">
+                        <div class="group">
                           <!-- Password-->
-                              <label class="control-label" for="password">Password</label>
-                              <div class="controls">
-                                    <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-                                    <p class="help-block">Password should be at least 4 characters</p>
-                              </div>
+                            <input type="password" data-toggle="tooltip" data-placement="right" title="Password should be at least 4 characters" id="password" name="password" placeholder="">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Password</label>            
                         </div>
-                        <div class="control-group">
+                        <div class="group">
                           <!-- Password -->
-                              <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-                              <div class="controls">
-                                    <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-                                    <p class="help-block">Please confirm password</p>
-                              </div>
+                            <input type="password" data-toggle="tooltip" data-placement="right" title="Please confirm password" id="password_confirm" name="password_confirm" placeholder="">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Password (confirm)</label>  
                         </div>
-                        <div class="control-group">
-                          <!-- Button -->
-                              <div class="controls">
-                                    <button class="btn-block btnbg">Register</button>
-                              </div>
-                        </div>
-                  </fieldset>
+                        <button type="button" class="button buttonBlue">Register
+                        <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div> 
             </form>
         </div>
         <div class ="col-md-4 col-sm-4 col-xs-12"></div>
