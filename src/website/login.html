@@ -16,21 +16,30 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12"></div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
-				<form class="form-container boxbg">
+				<form class="form-container">
 					<h1 align="center">Stockchain</h1>
-					<div class="form-group">
-						<label for="exampleInputEmail1">Email</label>
-						<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					<div class="group">
+						<input type="email" data-toggle="tooltip" data-placement="right" title="Please provide your email" id="email" name="email" placeholder="">
+						<span class="highlight"></span>
+						<span class="bar"></span>
+						<label>Email</label>
 				    </div>
-					<div class="form-group">
-					    <label for="exampleInputPassword1">Password</label>
-					    <input type="password" class="form-control" id="exampleInputPassword1">
+					<div class="group">
+						<input type="password" data-toggle="tooltip" data-placement="right" title="Please provide your password" id="password" name="password" placeholder="">
+	                    <span class="highlight"></span>
+	                    <span class="bar"></span>
+	                    <label>Password</label>  
 				  	</div>
-					<div class="form-group form-check">
+					<div class="group form-check">
 						<input type="checkbox" class="form-check-input" id="exampleCheck1">
 						<label class="form-check-label" for="exampleCheck1">Remember Me</label>
 					</div>
-				  	<button type="submit" class="btn-block btnbg">Submit</button><br>	
+				  	<button type="button" class="button buttonBlue">Register 
+                	<div class="ripples buttonRipples">
+                		<span class="ripplesCircle"></span>
+                	</div>
+                	</button> 
+                	<br>	
 					<p style="text-align:center">
 						<br>Need an account? <a href="../website/CreateAccount.html">Sign up</a>
 					</p>
