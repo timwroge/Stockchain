@@ -57,3 +57,8 @@ src/website/wamplangues/add_vhost_hellenic.php
 src/website/wamplangues/add_vhost_english.php
 src/website/wamplangues/add_vhost_czech.php
 src/website/testmysql.php
+src/website/.idea/misc.xml
+src/website/.idea/modules.xml
+src/website/.idea/vcs.xml
+src/website/.idea/website.iml
+src/website/.idea/workspace.xml
