@@ -62,3 +62,6 @@ src/website/.idea/modules.xml
 src/website/.idea/vcs.xml
 src/website/.idea/website.iml
 src/website/.idea/workspace.xml
+.idea/modules.xml
+.idea/Stockchain.iml
+.idea/workspace.xml
