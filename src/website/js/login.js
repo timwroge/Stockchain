@@ -1,4 +1,24 @@
 $(window, document, undefined).ready(function() {
+  $('form').on('submit', function(event) {
+    $.ajax({
+      email: $('#email').val(),
+      password: $('#password').val()
+    }),
+    type : 'POST',
+    url : '../python/loginProcess'
+
+    .done(function(data) {
+      if (data.error) {
+        $('#errorAlert').text(data.error).show();
+        $('#successAlert').hide();
+      } else {
+        $('#successAlert').text(data.name).show();
+        $('#errorAlert').hide();
+      }
+    });
+    event.preventDefault();
+  });
+
 
   $('input').blur(function() {
     var $this = $(this);
