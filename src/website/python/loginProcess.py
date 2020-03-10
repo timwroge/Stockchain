@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-app = Flash(__name__)
+app = Flask(__name__)
 
 @app.route('/')
 def index():
@@ -12,7 +12,7 @@ def loginProcess():
 	password = request.form['password']
 
 	if password and email:
-		newPassword = newPassword[::-1]
+		newPassword = password[::-1]
 		return jsonify({'password' : newPassword})
 	return jsonify({'error' : 'Missing data!'})
 
