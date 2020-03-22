@@ -1,5 +1,5 @@
 .bg {
-	background: url('../images/loginBackground.jpg');
+	background: url('images/loginBackground.jpg');
 	background-repeat: no-repeat;
 	background-size:cover;
 }
