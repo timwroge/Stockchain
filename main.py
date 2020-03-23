@@ -39,7 +39,7 @@ def register():
     # errors compiles error strings that occur, and then show page can place them into
     # any template {errors} field to display on the page - if we want to do it this way
     errors = []
-
+    #test push
     # if passes don't match - this is an error
     if password1 != password2:
         errors.append('Passwords do not match.')
