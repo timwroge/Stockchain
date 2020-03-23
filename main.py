@@ -1,5 +1,5 @@
 import flask
-from flask import jsonify
+from flask import jsonify, Flask
 from email.utils import parseaddr
 import hashlib
 import sys
