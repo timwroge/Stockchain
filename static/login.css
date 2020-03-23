@@ -1,7 +1,10 @@
 .bg {
-	background: url('../images/loginBackground.jpg');
+	background: url('images/loginBackground.jpg') no-repeat;
+	width: 100%;
+	height: 100vh;
+	background-position: center;
+	background-size: cover;
 	background-repeat: no-repeat;
-	background-size:cover;
 }
 
 .boxbg {
@@ -10,7 +13,7 @@
 
 
 .form-container {
-	border:1px solid #fff; 
+	border:1px solid #fff;
 	padding:50px 60px; margin-top:20vh;
 }
 
@@ -27,7 +30,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-hgroup { 
+hgroup {
 	text-align:center;
 	margin-top: 4em;
 }

@@ -2,16 +2,14 @@ import flask
 from flask import jsonify
 from email.utils import parseaddr
 import hashlib
-
 import sys
 sys.path.insert(1, '/src/website/python')
 from src.website.python import User, datastoreHelper
 
 
-app = flask.Flask(__name__)
+app = Flask(__name__, template_folder="src/website/templates" )
 # flask needs this don't ask any questions, shh it's a secret
 app.secret_key = b'oaijrwoizsdfmnvoiajw34foinmzsdv98j234'
-
 
 @app.route('/')
 def index():
