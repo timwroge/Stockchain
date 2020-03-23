@@ -86,7 +86,7 @@ def user_login():
         return flask.redirect('/dashboard')
     else:  # if login failed, return them to login
         errors = ['Failed to log in']
-        return show_page('login.html', 'Login', errors)
+        return flask.redirect('/login')
 
 
 # signs out the user, setting their session to None and redirecting to the home page
