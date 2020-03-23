@@ -19,28 +19,28 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12"></div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
-				<form class="form-container">
+				<form class="form-main" method="post" action="/user_login">
 					<h1 align="center">Stockchain</h1>
-					<div class="group">
+					<div class="form-group">
 						<input type="email" data-toggle="tooltip" data-placement="right" title="Please provide your email" id="email" name="email" placeholder="">
 						<span class="highlight"></span>
 						<span class="bar"></span>
 						<label>Email</label>
 				    </div>
-					<div class="group">
+					<div class="form-group">
 						<input type="password" data-toggle="tooltip" data-placement="right" title="Please provide your password" id="password" name="password" placeholder="">
 	                    <span class="highlight"></span>
 	                    <span class="bar"></span>
 	                    <label>Password</label>  
 				  	</div>
-				  	<button type="button" class="button buttonBlue">Sign In 
-                	<div class="ripples buttonRipples">
-                		<span class="ripplesCircle"></span>
-                	</div>
-                	</button> 
+				  	<div class="form-group ripples buttonRipples">
+                    <span class="ripplesCircle"></span>
+                    <input type="submit" class="button buttonBlue">
+                    <!--button type="button" class="button buttonBlue">Register-->
+                </div>
                 	<br>	
 					<p style="text-align:center">
-						<br>Need an account? <a href="CreateAccount.html">Sign up</a>
+						<br>Need an account? <a href="CreateAccount">Sign up</a>
 					</p>
 					<div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
 					<div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;" ></div>
