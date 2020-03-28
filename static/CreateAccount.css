@@ -1,7 +1,10 @@
 .bg {
-	background: url('images/loginBackground.jpg');
+	background: url('images/loginBackground.jpg') no-repeat;
+	width: 100%;
+	height: 100vh;
+	background-position: center;
+	background-size: cover;
 	background-repeat: no-repeat;
-	background-size:cover;
 }
 
 .boxbg {
