@@ -25,7 +25,8 @@ h1 {
     
 footer {
     color: white;
-    height: 9.75vh;
+    height: 12vh;
+    padding-top: 2.5%;
 }
 
 input:focus {
@@ -34,4 +35,23 @@ input:focus {
 
 img {
 	height: 35vh;
+}
+
+#positions-container {
+	height: 65vh;
+	overflow-y: auto;
+	text-align: left;
+}
+
+.stock {
+	border: solid gray 1px;
+	border-radius: 30px;
+	height: 15vh;
+	width: 47%;
+	padding-top:2%;
+	margin-bottom: 3%;
+	display: inline-block;
+	text-align: center;
+	margin-left: 1%;
+	margin-right:1%;
 }
