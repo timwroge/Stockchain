@@ -23,7 +23,7 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-4 col-xs-12"></div>
 			<div class="col-md-4 col-sm-4 col-xs-12">
-				<form class="form-container">
+				<form class="form-container" method="post" action="/user_login">
 					<h1 align="center">Stockchain</h1>
 					<div class="group">
 						<input type="email" data-toggle="tooltip" data-placement="right" title="Please provide your email" id="email" name="email" placeholder="Email">
@@ -35,12 +35,10 @@
 	                    <span class="highlight"></span>
 	                    <span class="bar"></span>
 				  	</div>
-				  	<button type="button" class="button buttonBlue">Sign In 
-                	<div class="ripples buttonRipples">
-                		<span class="ripplesCircle"></span>
-                	</div>
-                	</button> 
-                	<br>	
+                    <div class="form-group">
+                    <input type="submit" class="btn btn-primary w-bg-color-1">
+                    </div>
+				  	<br>	
 					<p style="text-align:center">
 						<br>Need an account? <a href="CreateAccount">Sign up</a>
 					</p>
