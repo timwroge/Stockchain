@@ -1,4 +1,4 @@
-# Stock Market Simulator
+# Stockchain
 Stock simulation tool
 
 ## Scope
