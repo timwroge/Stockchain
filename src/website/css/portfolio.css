@@ -1,0 +1,37 @@
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.navbar-brand {
+	cursor: default;
+}
+
+.row.content {
+	height: 80vh;
+}
+
+.form-control-plaintext {
+    cursor: default;
+}
+
+.portfolio-row {
+   	margin-top: -5%;
+}
+
+h1 {
+    cursor: default;
+}
+    
+footer {
+    color: white;
+    height: 9.75vh;
+}
+
+input:focus {
+    outline: none;
+}
+
+img {
+	height: 35vh;
+}
