@@ -7,4 +7,4 @@ Our product is called StockChain. StockChain is a website that will allow users 
 
 ## Getting Started
 
-Visit [https://stocky-mc-chainface.appspot.com/] to try out our web application
+Visit https://stocky-mc-chainface.appspot.com/ to try out our web application
