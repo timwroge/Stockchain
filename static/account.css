@@ -11,7 +11,6 @@
 	background-color: white;
 }
 
-
 .form-container {
 	border:1px solid #fff; 
 	padding:50px 60px; margin-top:20vh;
@@ -70,9 +69,6 @@ input {
 
 input:focus { outline: none; }
 
-
-/* Label */
-
 label {
 	color: #999; 
 	font-size: 18px;
@@ -84,18 +80,12 @@ label {
 	transition: all 0.2s ease;
 }
 
-
-/* active */
-
 input:focus ~ label, input.used ~ label {
 	top: -20px;
   transform: scale(.75); left: -2px;
 	/* font-size: 14px; */
 	color: #4a89dc;
 }
-
-
-/* Underline */
 
 .bar {
 	position: relative;
@@ -157,6 +147,7 @@ input:focus ~ .highlight {
   cursor: pointer;
   transition: all 0.15s ease;
 }
+
 .button:focus { outline: 0; }
 
 .buttonBlue {
