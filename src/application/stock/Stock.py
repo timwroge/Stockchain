@@ -14,3 +14,8 @@ class Stock(object):
         return self.ticker
     def getPrice(self):
         return self.price
+
+    def getAllInfo(self):
+        ticker_socket = yfinance.Ticker(self.ticker)
+        data = ticker_socket.get_info()
+        return data
