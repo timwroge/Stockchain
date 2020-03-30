@@ -1,24 +1,26 @@
+import datetime as dt
+
 class Position(object):
-    def __init__(self):
-        '''This is the user object'''
-        self.UserId = UserId
-        self.Username = Username
-        self.FullName = FullName
+    def __init__(self, currentValue, shares, stock):
+        '''This is the Position object'''
+        self.shares = shares
+        self.stock = stock
+        self.currentValue = currentValue
 
-    def getUserId(self):
-        return self.UserId
+    def getCurrentValue(self):
+        return self.currentValue
 
-    def setUserId(self, newUserId):
-        self.UserId = newUserId
+    def setCurrentValue(self, newValue):
+        self.currentValue  = newValue
 
-    def getUsername(self):
-        return self.Username
+    def getShares(self):
+        return self.shares
 
-    def setUsername(self, newUsername):
-        self.Username = newUsername
+    def setShares(self, newShares):
+        self.shares = newShares
 
-    def getFullName(self):
-        return self.FullName
+    def getStock(self):
+        return self.stock
 
-    def setFullName(self, newFullName):
-        self.FullName  = newFullName
+    def setStock(self, newStock):
+        self.stock = newStock
