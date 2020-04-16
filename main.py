@@ -14,7 +14,7 @@ app.secret_key = b'oaijrwoizsdfmnvoiajw34foinmzsdv98j234'
 @app.route('/')
 def index():
     if get_user():
-        return show_page('_base.html', 'Dashboard')
+        return show_page('portfolio.html', 'Dashboard')
     else:
         return show_page('login.html', 'Login')
 
@@ -100,7 +100,7 @@ def signout():
 @app.route('/dashboard')
 def dashboard():
     # this is just a temp to redirect from sign up - this would direct the user to their portfolio/dashboard
-    return show_page('_base.html', 'Dashboard')
+    return show_page('portfolio.html', 'Dashboard')
 
 
 # when a user signs in, the username is in the session[user], so we can get it at any time
