@@ -1,0 +1,57 @@
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.navbar-brand {
+	cursor: default;
+}
+
+.row.content {
+	height: 80vh;
+}
+
+.form-control-plaintext {
+    cursor: default;
+}
+
+.portfolio-row {
+   	margin-top: -5%;
+}
+
+h1 {
+    cursor: default;
+}
+    
+footer {
+    color: white;
+    height: 12vh;
+    padding-top: 2.5%;
+}
+
+input:focus {
+    outline: none;
+}
+
+img {
+	height: 35vh;
+}
+
+#positions-container {
+	height: 65vh;
+	overflow-y: auto;
+	text-align: left;
+}
+
+.stock {
+	border: solid gray 1px;
+	border-radius: 30px;
+	height: 15vh;
+	width: 47%;
+	padding-top:2%;
+	margin-bottom: 3%;
+	display: inline-block;
+	text-align: center;
+	margin-left: 1%;
+	margin-right:1%;
+}

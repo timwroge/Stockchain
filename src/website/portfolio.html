@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title> Portfolio | Stockchain </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="css/portfolio.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Stockchain</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">View Portfolio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Add Funds</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Add Positions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-4 text-left mt-4"> 
+      <h1 class="ml-3">Portfolio Summary</h1>
+      <hr class="mb-4">
+      <form class="ml-3">
+        <div class="form-group row portfolio-row">
+          <label for="txtValueSummary" class="col-sm-5 col-form-label font-weight-bold">Current Value:</label>
+    	  <div class="col-sm-7">
+      	    <input type="text" readonly class="form-control-plaintext" id="txtValueSummary" value="0.00">
+    	  </div>
+  		</div>
+  		<div class="form-group row portfolio-row">
+    	  <label for="txtFundsSummary" class="col-sm-5 col-form-label font-weight-bold">Current Funds:</label>
+    	  <div class="col-sm-7">
+      		<input type="text" readonly class="form-control-plaintext" id="txtFundsSummary" value="0.00">
+    	  </div>
+  		</div>
+  		<div class="form-group row portfolio-row">
+    	  <label for="txtPositionsSummary" class="col-sm-5 col-form-label font-weight-bold">Total Positions:</label>
+    	  <div class="col-sm-7">
+      		<input type="text" readonly class="form-control-plaintext" id="txtPositionsSummary" value="0">
+    	  </div>
+  		</div>
+  		<div class="form-group row portfolio-row">
+    	  <label for="txtSharesSummary" class="col-sm-5 col-form-label font-weight-bold">Total Shares:</label>
+    	  <div class="col-sm-7">
+      		<input type="text" readonly class="form-control-plaintext" id="txtSharesSummary" value="0">
+    	  </div>
+  		</div>
+	  </form>
+      <div class="mt-4">
+          <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_914d0" style="height: 500px"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.widget(
+  {
+  "autosize": true,
+  "symbol": "NASDAQ:AAPL",
+  "interval": "D",
+  "timezone": "Etc/UTC",
+  "theme": "light",
+  "style": "3",
+  "locale": "en",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "container_id": "tradingview_914d0"
+}
+  );
+  </script>
+</div>
+<!-- TradingView Widget END -->
+<!--<img src="images/graph.jpg" alt="Image">-->
+  	  </div>
+    </div>
+
+    <div class="col-sm-8 mt-4 border-left">
+      <h1 class="mb-3 mr-3">Positions</h1>
+      <div class="container" id="positions-container">
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+
+      	<div class="stock">
+      		<h4>Stock Name (STNM)</h4>
+  			<div class="form-group row portfolio-row mt-1">
+    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
+    	      </div>
+    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
+    	  	  <div class="col-sm-3">
+      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
+    	      </div>
+  		    </div>
+      	</div>
+  		
+	</div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer bg-dark">
+  <div class="container-fluid text-center">
+    <p>No Copyright 2020</p>
+  </div>
+</footer>
+</body>
+</html>
