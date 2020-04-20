@@ -4,6 +4,7 @@ from email.utils import parseaddr
 import hashlib
 import json
 import sys
+from src.application.stock import Stock
 sys.path.insert(1, '/src/website/python')
 from src.website.python import User, datastoreHelper
 
@@ -94,6 +95,11 @@ def get_tickers():
     print(tickers) 
     return json.dumps(tickers)
 
+# route for create account page
+@app.route('/get_stock_data/<ticker>')
+def get_stock_data(ticker):
+    stock = Stock(ticker)
+    return json.dumps(stock.getAllInfo())
 
 @app.route('/user_login', methods=['POST'])
 def user_login():
