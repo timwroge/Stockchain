@@ -92,15 +92,15 @@
             for (var key in stock_data) {
                 // Loop over the JSON array.
                 var row = document.createElement('tr')
-                name = document.createElement('th')
+                _name = document.createElement('th')
                 // Set the value using the item in the JSON array.
-                value = document.createElement('th')
+                _value = document.createElement('th')
                 formatted_val = key.toString().charAt(0).toUpperCase()+key.toString().slice(1);
-                name.innerText = formatted_val
-                value.innerText = stock_data[key]
+                _name.innerText = formatted_val
+                _value.innerText = stock_data[key]
                 row.appendChild(name)
                 row.appendChild(value)
-                table.appendChild(row)
+                data_table.appendChild(row)
             }
             company_information_section.appendChild(data_table)
         }
