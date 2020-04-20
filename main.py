@@ -6,6 +6,9 @@ import sys
 sys.path.insert(1, '/src/website/python')
 from src.website.python import User, datastoreHelper
 
+CLIENT_ID = '978820308825-dkff9fbqjg4vvpr22ohfkidi2n28bj1c.apps.googleusercontent.com'
+CLIENT_SECRET = 'l415lpbQTPiMwInvyUrNWyU2'
+
 
 app = Flask(__name__, template_folder="src/website/templates" )
 # flask needs this don't ask any questions, shh it's a secret
