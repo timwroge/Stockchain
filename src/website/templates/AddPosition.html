@@ -1,38 +1,6 @@
 <html>
 	<head>
-    <script type="text/javascript" >
-        // get the data on the ticker symbol passed in
-
-    let xmlHttp = createXmlHttp();
-    xmlHttp.onreadystatechange = function () {
-        console.log("Trying to get data");
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            // note that you can check xmlHttp.status here for the HTTP response code
-            console.log("Got something!");
-            console.log(".. done getting data");
-            // check if it is not defined
-            stock_data = JSON.parse(xmlHttp.responseText);
-            console.log(stock_data)
-            console.log("heres the object;");
-
-            title_for_company = document.getElementById("company_name");
-            title_for_company.value=stock_data.shortName
-            for (var key in stock_data) {
-                // Loop over the JSON array.
-                tickers.forEach(function(item)
-                {
-                        // Create a new <option> element.
-                        var option = document.createElement('p');
-                        // Set the value using the item in the JSON array.
-                        option.value = key;
-                }
-            }
-          );
-        }
-    };
-    xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
-    xmlHttp.send();
-    </script>
+    <script type="text/javascript" src="/static/ajax_helper_functions.js"></script>
 
 		<title>{{page_title}}</title>
         <!-- Bootstrap CDN -->
@@ -89,4 +57,38 @@
                 });
             });
         });
+    </script>
+
+    <script type="text/javascript" >
+        // get the data on the ticker symbol passed in
+
+    let xmlHttp = createXmlHttp();
+    xmlHttp.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            // note that you can check xmlHttp.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            stock_data = JSON.parse(xmlHttp.responseText);
+            console.log(stock_data)
+            console.log("heres the object;");
+
+            title_for_company = document.getElementById("company_name");
+            title_for_company.value=stock_data.shortName
+            for (var key in stock_data) {
+                // Loop over the JSON array.
+                tickers.forEach(function(item)
+                {
+                        // Create a new <option> element.
+                        var option = document.createElement('p');
+                        // Set the value using the item in the JSON array.
+                        option.value = key;
+                }
+            }
+          );
+        }
+    };
+    xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
+    xmlHttp.send();
     </script>
