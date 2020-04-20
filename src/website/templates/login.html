@@ -41,18 +41,6 @@
                     <div class="form-group">
                     <input type="submit" class="btn btn-primary w-bg-color-1">
                     </div>
-                    <center>
-                    	<div class="g-signin2" data-onsuccess="onSignIn"></div>
-                	</center>
-                    <script>
-	                	function onSignIn(googleUser) {
-							var profile = googleUser.getBasicProfile();
-							console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-							console.log('Name: ' + profile.getName());
-							console.log('Image URL: ' + profile.getImageUrl());
-							console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-						}
-					</script>
 				  	<br>	
 					<p style="text-align:center">
 						<br>Need an account? <a href="CreateAccount">Sign up</a>
