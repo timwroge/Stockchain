@@ -1,5 +1,5 @@
 import flask
-from flask import jsonify, Flask
+from flask import jsonify, Flask, request
 from email.utils import parseaddr
 import hashlib
 import json
@@ -37,6 +37,12 @@ def index():
 @app.route('/CreateAccount')
 def createAcct():
     return show_page('CreateAccount.html', 'Create Account')
+
+# route for create account page
+@app.route('/add_position', methods=[ 'POST', 'GET' ])
+def add_positions():
+    search = flask.request.args.get('search')
+    return flask.render_template('AddPosition.html', stock=search, title='Add Position')
 
 
 # 'register' method that performs registration of user
@@ -85,8 +91,9 @@ def login():
 # route for create account page
 @app.route('/get_tickers')
 def get_tickers():
-    print(tickers ) 
+    print(tickers) 
     return json.dumps(tickers)
+
 
 @app.route('/user_login', methods=['POST'])
 def user_login():

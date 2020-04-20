@@ -16,6 +16,32 @@
                 <a href="/signout" class="nav-link p-3">Sign Out</a> 
             {% endif %}
         </nav>
+        <p>{{stock}} </p>
+
+          <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_914d0" style="height: 500px"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-{{stock}}/" rel="noopener" target="_blank"><span class="blue-text">{{stock}}  Chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+  new TradingView.widget(
+  {
+  "autosize": true,
+  "symbol": "NASDAQ:{{stock}}",
+  "interval": "D",
+  "timezone": "Etc/UTC",
+  "theme": "light",
+  "style": "3",
+  "locale": "en",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "container_id": "tradingview_914d0"
+}
+  );
+  </script>
+</div>
+<!-- TradingView Widget END -->
         {% block content %}{% endblock %}
     </body>
     <!-- scrolling for html markers --> 
