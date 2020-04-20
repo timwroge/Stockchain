@@ -33,12 +33,22 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 <datalist id="tickers">
-  <option value="GOOG">
-  <option value="TSLA">
-  <option value="AAPL">
-  <option value="AVGO">
-  <option value="BRK.A">
 </datalist>
+    <script type="text/javascript" >
+        // this populates the search engine results
+        tickers = [ "TSLA" , "BRK.A", "GOOG", "NVDA"   ]
+        dataList = document.getElementById("tickers");
+              // Loop over the JSON array.
+          tickers.forEach(function(item) {
+            // Create a new <option> element.
+            var option = document.createElement('option');
+            // Set the value using the item in the JSON array.
+            option.value = item;
+            // Add the <option> element to the <datalist>.
+            dataList.appendChild(option);
+          });
+    </script>
+ <datalist id="json_datalist"></datalist>
   </div>
 </nav>
   
