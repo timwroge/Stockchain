@@ -4,7 +4,7 @@ from email.utils import parseaddr
 import hashlib
 import json
 import sys
-from src.application.stock import Stock
+from src.application.stock.Stock import Stock
 sys.path.insert(1, '/src/website/python')
 from src.website.python import User, datastoreHelper
 
