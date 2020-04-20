@@ -11,7 +11,20 @@ from src.website.python import User, datastoreHelper
 app = Flask(__name__, template_folder="src/website/templates" )
 # flask needs this don't ask any questions, shh it's a secret
 app.secret_key = b'oaijrwoizsdfmnvoiajw34foinmzsdv98j234'
+import bs4 as bs
+import requests
 
+def get_s_and_p_tickers():
+    resp = requests.get('http://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+    soup = bs.BeautifulSoup(resp.text, 'lxml')
+    table = soup.find('table', {'class': 'wikitable sortable'})
+    tickers = []
+    for row in table.findAll('tr')[1:]:
+        ticker = row.findAll('td')[0].text.rstrip()
+        tickers.append(ticker)
+    return tickers
+
+tickers = get_s_and_p_tickers()
 @app.route('/')
 def index():
     if get_user():
@@ -72,7 +85,8 @@ def login():
 # route for create account page
 @app.route('/get_tickers')
 def get_tickers():
-    return json.dumps(["Hi I came from the server" ] )
+    print(tickers ) 
+    return json.dumps(tickers)
 
 @app.route('/user_login', methods=['POST'])
 def user_login():

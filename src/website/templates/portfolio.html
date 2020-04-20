@@ -8,6 +8,7 @@
 
 	<link href="css/portfolio.css" type="text/css" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script type="text/javascript" src="/static/ajax_helper_functions.js"></script>
 </head>
 
 <body>
@@ -37,16 +38,34 @@
     <script type="text/javascript" >
         // this populates the search engine results
         tickers = [ "TSLA" , "BRK.A", "GOOG", "NVDA"   ]
-        dataList = document.getElementById("tickers");
-              // Loop over the JSON array.
-          tickers.forEach(function(item) {
-            // Create a new <option> element.
-            var option = document.createElement('option');
-            // Set the value using the item in the JSON array.
-            option.value = item;
-            // Add the <option> element to the <datalist>.
-            dataList.appendChild(option);
-          });
+
+    let xmlHttp = createXmlHttp();
+    xmlHttp.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            // note that you can check xmlHttp.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            tickers  = JSON.parse(xmlHttp.responseText);
+            console.log("heres the object;");
+
+            dataList = document.getElementById("tickers");
+            // Loop over the JSON array.
+            tickers.forEach(function(item)
+            {
+                    // Create a new <option> element.
+                    var option = document.createElement('option');
+                    // Set the value using the item in the JSON array.
+                    option.value = item;
+                    // Add the <option> element to the <datalist>.
+                    dataList.appendChild(option);
+            }
+          );
+        }
+    };
+    xmlHttp.open("GET", 'get_tickers' , true);
+    xmlHttp.send();
     </script>
  <datalist id="json_datalist"></datalist>
   </div>
