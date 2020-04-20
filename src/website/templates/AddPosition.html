@@ -5,7 +5,6 @@
 		<title>{{page_title}}</title>
         <!-- Bootstrap CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
@@ -45,6 +44,10 @@
 </div>
 <!-- TradingView Widget END -->
 <h2> Information about <span id="company_name"> </span> </h2>
+<div id="stock_info" >
+
+
+</div>
         {% block content %}{% endblock %}
     </body>
     <!-- scrolling for html markers --> 
@@ -75,12 +78,15 @@
             console.log("heres the object;");
 
             title_for_company = document.getElementById("company_name");
-            title_for_company.value=stock_data.shortName
+            title_for_company.innerText=stock_data.shortName
+
+            company_information_section = document.getElementById("stock_info");
             for (var key in stock_data) {
                 // Loop over the JSON array.
-                        var option = document.createElement('p');
+                        var info = document.createElement('p')
                         // Set the value using the item in the JSON array.
-                        option.value = key;
+                        info.innerText = key
+                        company_information_section.appendChild(info)
             }
         }
     };
