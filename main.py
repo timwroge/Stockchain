@@ -32,9 +32,17 @@ tickers = get_s_and_p_tickers()
 @app.route('/')
 def index():
     if get_user():
-        return show_page('portfolio.html', 'Dashboard')
+        return flask.redirect('/dashboard')
     else:
         return show_page('login.html', 'Login')
+
+# dashboard route
+@app.route('/dashboard')
+def dashboard():
+    if get_user():
+        return show_page('portfolio.html', 'Dashboard')
+    else:
+        return flask.redirect('/')
 
 
 # route for create account page
@@ -129,13 +137,6 @@ def user_login():
 def signout():
     flask.session['user'] = None
     return flask.redirect('/')
-
-
-# dashboard route
-@app.route('/dashboard')
-def dashboard():
-    # this is just a temp to redirect from sign up - this would direct the user to their portfolio/dashboard
-    return show_page('portfolio.html', 'Dashboard')
 
 
 # when a user signs in, the username is in the session[user], so we can get it at any time
