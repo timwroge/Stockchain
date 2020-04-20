@@ -98,8 +98,8 @@
                 formatted_val = key.toString().charAt(0).toUpperCase()+key.toString().slice(1);
                 _name.innerText = formatted_val
                 _value.innerText = stock_data[key]
-                row.appendChild(name)
-                row.appendChild(value)
+                row.appendChild(_name)
+                row.appendChild(_value)
                 data_table.appendChild(row)
             }
             company_information_section.appendChild(data_table)
