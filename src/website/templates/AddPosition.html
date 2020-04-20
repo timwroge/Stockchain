@@ -43,6 +43,8 @@
   </script>
 </div>
 <!-- TradingView Widget END -->
+<div id="logo_holder" >
+</div>
 <h2> Information about <span id="company_name"> </span> </h2>
 <div id="stock_info" >
 
@@ -81,13 +83,26 @@
             title_for_company.innerText=stock_data.shortName
 
             company_information_section = document.getElementById("stock_info");
+            var company_image = document.createElement('img')
+            company_image.src = stock_data.logo_url
+            company_logo_section = document.getElementById("stock_info");
+            company_logo_section.appendChild(company_image)
+
+            var data_table = document.createElement('table')
             for (var key in stock_data) {
                 // Loop over the JSON array.
-                        var info = document.createElement('p')
-                        // Set the value using the item in the JSON array.
-                        info.innerText = key
-                        company_information_section.appendChild(info)
+                var row = document.createElement('tr')
+                name = document.createElement('th')
+                // Set the value using the item in the JSON array.
+                value = document.createElement('th')
+                formatted_val = key.toString().charAt(0).toUpperCase()+key.toString().slice(1);
+                name.innerText = formatted_val
+                value.innerText = stock_data[key]
+                row.appendChild(name)
+                row.appendChild(value)
+                table.appendChild(row)
             }
+            company_information_section.appendChild(data_table)
         }
     };
     xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
