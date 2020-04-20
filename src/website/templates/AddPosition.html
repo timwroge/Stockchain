@@ -17,7 +17,9 @@
                 <a href="/signout" class="nav-link p-3">Sign Out</a> 
             {% endif %}
         </nav>
+<div id="logo_holder" >
         <p>{{stock}} </p>
+</div>
 
           <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
@@ -43,8 +45,6 @@
   </script>
 </div>
 <!-- TradingView Widget END -->
-<div id="logo_holder" >
-</div>
 <h2> Information about <span id="company_name"> </span> </h2>
 <div id="stock_info" >
 
@@ -85,7 +85,7 @@
             company_information_section = document.getElementById("stock_info");
             var company_image = document.createElement('img')
             company_image.src = stock_data.logo_url
-            company_logo_section = document.getElementById("stock_info");
+            company_logo_section = document.getElementById("logo_holder");
             company_logo_section.appendChild(company_image)
 
             var data_table = document.createElement('table')
