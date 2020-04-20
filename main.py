@@ -2,6 +2,7 @@ import flask
 from flask import jsonify, Flask
 from email.utils import parseaddr
 import hashlib
+import json
 import sys
 sys.path.insert(1, '/src/website/python')
 from src.website.python import User, datastoreHelper
@@ -68,6 +69,10 @@ def register():
 def login():
     return show_page('login.html', 'Login')
 
+# route for create account page
+@app.route('/get_tickers')
+def get_tickers():
+    return json.dumps(["Hi I came from the server" ] )
 
 @app.route('/user_login', methods=['POST'])
 def user_login():
