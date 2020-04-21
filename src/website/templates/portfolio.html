@@ -134,6 +134,10 @@
                     console.log(key)
                     var entry = document.createElement('th')
                     set_data_member(entry, transaction[key], row)
+                    if(key == "ticker" ) {
+                        console.log("Adding href" )
+                        entry.href = "/add_position?search=" +transaction[key]
+                    }
                 }
                 data_table.appendChild(row)
             }
@@ -159,7 +163,27 @@
     xmlReq.open("GET", 'get_portfolio_positions' , true);
     xmlReq.send();
     console.log("Generating transaction table" )
-    // the transaction object will have { time, shares, stock_ticker, type , value} p
+    // the transaction object will have { time, shares, ticker, type , value} p
+
+    let xmlReq = createXmlHttp();
+    xmlReq.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlReq.readyState == 4 && xmlReq.status == 200) {
+            // note that you can check xmlReq.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            transactions = JSON.parse(xmlReq.responseText);
+            console.log(transactions)
+            console.log("heres the object;");
+            // we will change this stuff after we get the object
+            set_up_table(transactions)
+
+        }
+    };
+    xmlReq.open("GET", 'get_portfolio_positions' , true);
+    xmlReq.send();
+    console.log("Generating transaction table" )
     </script>
 
 <footer class="footer bg-dark">
