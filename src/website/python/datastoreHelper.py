@@ -99,46 +99,45 @@ def get_positions(user):
     client = get_client()
 
     q = client.query(kind='Position')
-    q.add_filter('username', '=', user)
+    q.add_filter('Username', '=', user)
 
     positions = []
     # for each Position fetched, add it to array
     for position in q.fetch():
         positions.append({
-            "Ticker": position.Ticker,
-            "positionType": position.positionType,
-            "shares": position.shares
+            "shares": position['shares'],
+            "stock_ticker": position['Ticker'],
+            "type": position['positionType'],
+            "value": 0
         })
+    # value? -> value we need to get from stock data?
 
-    # add each item into the array as a dict`
     # then we turn the entire array into JSON and send it to the client
     array_json = json.dumps(positions, indent=4) #, cls=dataClasses.ClothingEncoder)
     return array_json
 
 
-
+# gets all transactions for this user's transaction history
 def get_history(user):
-    #get datastor client
-    client = get_client
+    # get datastore client
+    client = get_client()
 
-    q = client.query(kind = 'History')
+    q = client.query(kind='History')
     q.add_filter('username', '=', user)
-
 
     history = []
     # of positions fetched
     for historyItem in q.fetch():
         history.append({
-            "Ticker" : historyItem.ticker,
-            "InteractionType" : historyItem.interactionType,
-            "shares" : historyItem.shares,
-            "InteractionTime" : historyItem.interactionTime,
-            "Price" : historyItem.price
+            "time" : historyItem['interactionTime'],
+            "shares" : historyItem['shares'],
+            "stock_ticker" : historyItem['ticker'],
+            "type" : historyItem['interactionType'],
+            "value" : historyItem['price']
         })
 
-    array_json = json.dumps(history, indent=4)
+    array_json = json.dumps(history, indent=4, default=str)
     return array_json
-
 
 
 #adds a history element for this user to the db
@@ -173,38 +172,47 @@ def add_history(user, item):
 
 #return the user's cash amount
 def get_cash(user):
-    #get datastor client
-    client = get_client
+    #get datastore client
+    client = get_client()
 
     q = client.query(kind = 'User')
     q.add_filter('username', '=', user)
 
     # only one user will be returned so this is all I need
-    cash = q.fetch().cash
+    cash = q.fetch()['cash']
 
     # I hope that this still works? not srue if anything is different about this
-    array_json = json.dumps(cash, indent=4)
-    return array_json
+    cash_string = json.dumps(cash, indent=4)
+    return cash_string
+
 
 # This will take in a cash amount and user and add it to the amount in the datbase!
 def add_cash(user, cash):
-    #get datastore client
+    # get datastore client
     client = get_client()
 
-    #creates a query based on the data
+    # creates a query based on the data
     q = client.query(kind='User')
     q.add_filter('username', '=', user)
 
-    # This will only return one, but I am not sure what q.fetch returns
-    for usr in q.fetch():
-        # I don't think this can be more than one
-        task = client.get(usr.key)
-        currMoney = task[cash]
-        task['shares'] = currMoney + cash
-        break
+    # our fancy currency input is a string, so need to remove the , and $ that it adds in so we can make this a float
+    cash_as_fp = float(cash.replace(',','').replace('$',''))
 
+    # get the matching user entity
+    results = list(q.fetch())
+    usr = results[0]
 
-    client.put(task)
+    # update cash amount with existing amount
+    newCash = cash_as_fp + usr['Cash']
+
+    # update entity
+    usr.update({
+        'Cash': newCash
+    })
+
+    # write back
+    client.put(usr)
+
 
 #remove position
 def remove_position(user, ticker):

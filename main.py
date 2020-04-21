@@ -99,7 +99,7 @@ def login():
 # route for create account page
 @app.route('/get_tickers')
 def get_tickers():
-    print(tickers) 
+    # print(tickers) 
     return json.dumps(tickers)
 
 # route for create account page
@@ -139,16 +139,19 @@ def signout():
 def show_transaction_history():
     return show_page("TransactionHistory.html", "Transaction History"  )
 
+
 @app.route('/get_transaction_history')
 def get_transaction_history():
-    return json.dumps([
+    json.dumps([
         {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}, \
         {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 101}, \
-                ] )
+    ])
+    return datastoreHelper.get_history(get_user())
+
 
 @app.route('/get_portfolio_positions')
 def get_porfolio_positions():
-    return json.dumps([
+    json.dumps([
         {"shares": 2, "stock_ticker": "TSLA"  , "type": "long"  , "value": "$200" }, \
         {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
         {"shares": 2, "stock_ticker": "AVGO"  , "type": "long"  , "value": "$100" }, \
@@ -159,15 +162,26 @@ def get_porfolio_positions():
         {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
         {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
         {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-                ] )
+    ])
+    return datastoreHelper.get_positions(get_user())
+
+
 @app.route('/add_funds')
 def show_add_funds():
     return show_page("AddFunds.html", "Add Funds"  )
 
-# method to get all positions for this use
-@app.route('/get_positions')
-def get_positions():
-    return datastoreHelper.get_positions(get_user())
+
+@app.route('/req_funds', methods=['POST'])
+def add_funds():
+    amount = flask.request.form.get('currency-field')
+    datastoreHelper.add_cash(get_user(), amount)
+    return flask.redirect('/dashboard')
+
+
+#call to DB to get the amount of cash that this user has
+@app.route('/get_funds')
+def get_funds():
+    return datastoreHelper.get_cash(get_user())
 
 
 # method used to add to the wardrobe

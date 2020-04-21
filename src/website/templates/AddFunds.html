@@ -97,7 +97,7 @@ button:hover {
     {% extends '_base.html' %}
 
     {% block content %}
-        <h1> Add Funds to Portfolio:{{user}}</h1>
+        <h1> Add Funds to Portfolio: {{user}}</h1>
         <nav class="navbar px-5 py-3 w-bg-color-1">
             {% if user %}
                 <a href="/signout" class="nav-link p-3">Sign Out</a> 
@@ -110,7 +110,7 @@ button:hover {
 <div class="main">
     <h1>Add Funds to Your Account</h1>
 
-      <form class="form-container" method="post" action="/add_funds">
+      <form class="form-container" method="post" action="/req_funds">
       <label for="currency-field">Enter Amount</label>
       <input type="text" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="$1,000.00">
       <button type="submit">Add funds</button>
