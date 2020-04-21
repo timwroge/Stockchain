@@ -8,6 +8,49 @@
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
+    <script type="text/javascript" >
+        // get the data on the ticker symbol passed in
+    let xmlHttp = createXmlHttp();
+    xmlHttp.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            // note that you can check xmlHttp.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            stock_data = JSON.parse(xmlHttp.responseText);
+            console.log(stock_data)
+            console.log("heres the object;");
+
+            title_for_company = document.getElementById("company_name");
+            title_for_company.innerText=stock_data.shortName
+
+            company_information_section = document.getElementById("stock_info");
+            var company_image = document.createElement('img')
+            company_image.src = stock_data.logo_url
+            company_logo_section = document.getElementById("logo_holder");
+            company_logo_section.appendChild(company_image)
+
+            var data_table = document.createElement('table')
+            for (var key in stock_data) {
+                // Loop over the JSON array.
+                var row = document.createElement('tr')
+                _name = document.createElement('th')
+                // Set the value using the item in the JSON array.
+                _value = document.createElement('th')
+                formatted_val = key.toString().charAt(0).toUpperCase()+key.toString().slice(1);
+                _name.innerText = formatted_val
+                _value.innerText = stock_data[key]
+                row.appendChild(_name)
+                row.appendChild(_value)
+                data_table.appendChild(row)
+            }
+            company_information_section.appendChild(data_table)
+        }
+    };
+    xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
+    xmlHttp.send();
+    </script>
 	</head>
 	<body>
 
@@ -98,49 +141,5 @@
         });
     </script>
 
-    <script type="text/javascript" >
-        // get the data on the ticker symbol passed in
-
-    let xmlHttp = createXmlHttp();
-    xmlHttp.onreadystatechange = function () {
-        console.log("Trying to get data");
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            // note that you can check xmlHttp.status here for the HTTP response code
-            console.log("Got something!");
-            console.log(".. done getting data");
-            // check if it is not defined
-            stock_data = JSON.parse(xmlHttp.responseText);
-            console.log(stock_data)
-            console.log("heres the object;");
-
-            title_for_company = document.getElementById("company_name");
-            title_for_company.innerText=stock_data.shortName
-
-            company_information_section = document.getElementById("stock_info");
-            var company_image = document.createElement('img')
-            company_image.src = stock_data.logo_url
-            company_logo_section = document.getElementById("logo_holder");
-            company_logo_section.appendChild(company_image)
-
-            var data_table = document.createElement('table')
-            for (var key in stock_data) {
-                // Loop over the JSON array.
-                var row = document.createElement('tr')
-                _name = document.createElement('th')
-                // Set the value using the item in the JSON array.
-                _value = document.createElement('th')
-                formatted_val = key.toString().charAt(0).toUpperCase()+key.toString().slice(1);
-                _name.innerText = formatted_val
-                _value.innerText = stock_data[key]
-                row.appendChild(_name)
-                row.appendChild(_value)
-                data_table.appendChild(row)
-            }
-            company_information_section.appendChild(data_table)
-        }
-    };
-    xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
-    xmlHttp.send();
-    </script>
 {% endblock %}
     </body>
