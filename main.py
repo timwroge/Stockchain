@@ -145,6 +145,9 @@ def get_transaction_history():
         {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}, \
         {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 101}, \
                 ] )
+@app.route('/add_funds')
+def show_add_funds():
+    return show_page("AddFunds.html", "Add Funds"  )
 
 # when a user signs in, the username is in the session[user], so we can get it at any time
 def get_user():
