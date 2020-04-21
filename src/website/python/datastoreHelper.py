@@ -189,24 +189,62 @@ def get_cash(user):
 # This will take in a cash amount and user and add it to the amount in the datbase!
 def add_cash(user, cash):
     #get datastore client
-    client = get_client
+    client = get_client()
 
-    q = client.query(kind = 'User')
-    q.add_filter(('username'), '=', user)
+    #creates a query based on the data
+    q = client.query(kind='User')
+    q.add_filter('username', '=', user)
 
-    new_cash = q.fetch().cash + cash
+    # This will only return one, but I am not sure what q.fetch returns
+    for usr in q.fetch():
+        # I don't think this can be more than one
+        task = client.get(usr.key)
+        currMoney = tash[cash]
+        task[shares] = currMoney + cash
+        break
 
-    # this needs to be an update, I will figure that out in a sec
-    with client.transaction():
-        # key is based on Position kind, datastore will give us an int identifier
-        key = client.key('User')
 
-        # Make a Position entity for this item
-        user = datastore.Entity(key)
-
-        # User who owns the position (for query)
-        user['cash'] = user
+    client.put(task)
 
 #remove position
+def remove_position(user, ticker)
+    #get datastore client
+    client = get_client()
 
-#update position
+    #creates a query based on the data
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', ticker)
+
+
+    for item in q.fetch():
+        # I don't think this can be more than one
+        client.delete(item.key)
+        break
+    
+    #I was confused why this code was here
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', ticker)
+
+# update position 
+# I am not sure what obj will be passed into this
+def update_position(user, ticker, shares)
+    #get datastore client
+    client = get_client()
+
+    #creates a query based on the data
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', ticker)
+
+    # This will only return one, but I am not sure what q.fetch returns
+    for pos in q.fetch():
+        # I don't think this can be more than one
+        task = client.get(pos.key)
+        currShares = tash[shares]
+        task[shares] = currShares + shares
+        break
+
+
+    client.put(task)
