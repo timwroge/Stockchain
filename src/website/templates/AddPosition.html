@@ -71,7 +71,9 @@
     {% extends '_base.html' %}
 
     {% block content %}
-        <h1> Add Positions to Portfolio:{{user}}</h1>
+            {% if is_valid %}
+        <h1> Add Positions to Portfolio: {{user}}</h1>
+
 <h2>
 <span id="logo_holder" >
 </div>
@@ -154,6 +156,10 @@
             });
         });
     </script>
+            {% else %}
+            <h2> The Ticker: {{stock}} is not valid, try to search for another stock  </h2>
 
+
+            {% endif %}
 {% endblock %}
     </body>

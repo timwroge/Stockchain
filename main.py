@@ -53,8 +53,7 @@ def view_stock():
     search = flask.request.args.get('search').upper()
     s = Stock(search)
     # check and get the number of shares they have for this ticker (if they do) pass in can_sell
-
-    return show_page('AddPosition.html', ('Viewing ' + search), stock=search, curr_val=s.getCurrentPrice())
+    return show_page('AddPosition.html', ('Viewing ' + search), stock=search, is_valid=s.isValid(), curr_val=s.getCurrentPrice())
 
 
 # 'register' method that performs registration of user

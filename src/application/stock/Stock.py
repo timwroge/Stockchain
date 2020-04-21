@@ -17,6 +17,12 @@ class Stock(object):
         return self.ticker
     def getPrice(self):
         return self.price
+    def isValid(self):
+        try:
+            self.getAllInfo()
+            return True
+        except Exception:
+            return False
 
     def getAllInfo(self):
         ticker_socket = yfinance.Ticker(self.ticker)
