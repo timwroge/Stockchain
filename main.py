@@ -232,10 +232,10 @@ def get_user():
 
 
 # adapted from week6p9, show page is a wrapper for render_template, it allows us to easily specify what we pass to the template
-def show_page(page, title, stock=None, curr_val=None, show=True, errors=None):
+def show_page(page, title, stock=None, curr_val=None, show=True, errors=None, is_valid=None):
     # always need a page, page title, and user to pass into template
     # errors is an array of error strings, to be displayed in the errors field in the event of errors *note: errors*
-    return flask.render_template(page, page_title=title, user=get_user(), stock=stock, curr_val=curr_val, show=show, errors=errors)
+    return flask.render_template(page, page_title=title, user=get_user(), stock=stock, is_valid=is_valid, curr_val=curr_val, show=show, errors=errors)
 
 
 # Hashes the password using sha256 from hashlib
