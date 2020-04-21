@@ -7,7 +7,7 @@ import sys
 sys.path.insert(1, '/src/website/python')
 sys.path.insert(1, '/src/application/')
 from src.website.python import User
-from src.application.stock import Stock
+from src.application.stock.Stock import Stock
 
 # this is a helper class that main.py uses to handle calls to the datastore
 
@@ -179,6 +179,7 @@ def get_positions(user):
 
     # for each Position fetched, add it to array
     for position in q.fetch():
+        print(position) 
         current_stock = Stock(position['Ticker'])
         current_price = current_stock.getCurrentPrice()
         total_price = current_price*position['shares']
