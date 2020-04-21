@@ -207,6 +207,7 @@ def get_history(user):
     history = []
     # of positions fetched
     for historyItem in q.fetch():
+        print(historyItem)
         history.append({
             "time" : historyItem['interactionTime'],
             "shares" : historyItem['shares'],
