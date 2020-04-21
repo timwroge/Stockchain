@@ -67,78 +67,25 @@ def load_user(email, passwordhash):
         return User.User(user['username'], user['email'])
     return None
 
-############################################ Examples
 
-# Add item
-def add_item(user, item):
-    # get datastore client
-    client = get_client()
+def get_history(user):
+    #get datastor client
+    client = get_client
 
-    # idea is to use a transaction that either gets the entity or creates it if there is none
-    with client.transaction():
-
-        # new kind - Clothing
-        # item key is Clothing/(random int id)
-        # properties are: user(username), item_id(int for item type) and then the item itself(json string of the item)
-
-        # key is based on Clothing kind, datastore will give us an int identifier
-        key = client.key('Clothing')
-
-        # Make a Clothing entity for this item
-        clothing = datastore.Entity(key)
-
-        # User who owns the item (for query)
-        clothing['username'] = user
-        # item type specified with an int id (for query)
-        clothing['type'] = 0
-        # the Clothing object itself
-        clothing['data'] = json.dumps(item, indent=4) #, cls=dataClasses.ClothingEncoder)
-
-        # from our entity, decode json in clothing property # into an array of clothing items # items = json.loads(wardrobe['clothing'])
-
-        # put item into datastore
-        client.put(clothing)
+    q = client.query(kind = 'Position')
+    q.add_filter('Username', '=', user)
 
 
-# get user's wardrobe info and return it to main as JSON
-def get_wardrobe(user):
-    # get datastore client
-    client = get_client()
+    positions = []
+    # of positions fetched
+    for positions in q.fetch():
+        positions.append([
+            "Ticker" : position.Ticker,
+            "positionType" : position.positionType,
+            "shares" : position.shares
+        ])
 
-    # to get whole wardrobe, query all "Clothing" entities for the user's items
-    # we will return an array of the Clothing items for this user
+    
 
-    q = client.query(kind='Clothing')
-    q.add_filter('username', '=', user)
-
-    items = []
-    # for each Clothing kind fetched, add its data string to an array
-    for item in q.fetch():
-        # add each item into the array as a Clothing item loaded from the JSON
-        items.append(json.loads(item['data']))
-
-    # then we turn the entire array into JSON and send it to the client
-    array_json = json.dumps(items, indent=4) #, cls=dataClasses.ClothingEncoder)
-    return array_json
-
-
-#deletes an item from the database
-def delete_item(user,data):
-    #get datastore client
-    client = get_client()
-
-    #creates a query based on the data
-    q = client.query(kind='Clothing')
-    q.add_filter('username', '=', user)
-
-    for element in data:
-        if 'id' in element:
-            del element['id']
-        if 'state' in element:
-            del element['state']
-        for item in q.fetch():
-            if json.loads(item['data'])==element:
-                client.delete(item.key)
-                break
-        q = client.query(kind='Clothing')
-        q.add_filter('username', '=', user)
+    array_json = json.dumps(positions,)
+    return arroy_json
