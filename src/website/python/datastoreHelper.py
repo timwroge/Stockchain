@@ -176,13 +176,17 @@ def get_positions(user):
     q.add_filter('Username', '=', user)
 
     positions = []
+
     # for each Position fetched, add it to array
     for position in q.fetch():
+        current_stock = Stock(position['Ticker'])
+        current_price = current_stock.getCurrentPrice()
+        total_price = current_price*position['shares']
         positions.append({
             "shares": position['shares'],
             "ticker": position['Ticker'],
             "type": position['positionType'],
-            "value": "${}".format(Stock(position['Ticker']).getCurrentPrice())
+            "value": "${}".format(total_price)
         })
     # value? -> value we need to get from stock data?
 
