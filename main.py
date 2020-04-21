@@ -46,11 +46,12 @@ def dashboard():
 def createAcct():
     return show_page('CreateAccount.html', 'Create Account')
 
-# route for create account page
-@app.route('/add_position', methods=[ 'POST', 'GET' ])
-def add_positions():
-    search = flask.request.args.get('search')
-    return flask.render_template('AddPosition.html', stock=search, title='Add Position')
+
+# route for the view stock / search results page
+@app.route('/view_stock', methods=[ 'POST', 'GET' ])
+def view_stock():
+    search = flask.request.args.get('search').upper()
+    return show_page('AddPosition.html', ('Viewing ' + search), stock=search)
 
 
 # 'register' method that performs registration of user
@@ -91,23 +92,26 @@ def register():
         return flask.redirect('/dashboard')
 
 
-# route for create account page
+# route for login page
 @app.route('/login')
 def login():
     return show_page('login.html', 'Login')
 
-# route for create account page
+# route for requesting ticker info
 @app.route('/get_tickers')
 def get_tickers():
     # print(tickers) 
     return json.dumps(tickers)
 
-# route for create account page
+
+# route that gets stock data based off ticker
 @app.route('/get_stock_data/<ticker>')
 def get_stock_data(ticker):
     stock = Stock(ticker)
     return json.dumps(stock.getAllInfo())
 
+
+# attempts to log in the user
 @app.route('/user_login', methods=['POST'])
 def user_login():
     # from the sign in form, get email and password
@@ -134,12 +138,14 @@ def signout():
     flask.session['user'] = None
     return flask.redirect('/')
 
-# signs out the user, setting their session to None and redirecting to the home page
+
+# routes to the transaction history page
 @app.route('/transaction_history')
 def show_transaction_history():
     return show_page("TransactionHistory.html", "Transaction History"  )
 
 
+# call that requests users transaction history
 @app.route('/get_transaction_history')
 def get_transaction_history():
     json.dumps([
@@ -149,6 +155,7 @@ def get_transaction_history():
     return datastoreHelper.get_history(get_user())
 
 
+# call that requests users current positions
 @app.route('/get_portfolio_positions')
 def get_porfolio_positions():
     json.dumps([
@@ -166,11 +173,13 @@ def get_porfolio_positions():
     return datastoreHelper.get_positions(get_user())
 
 
+# route to the add funds page
 @app.route('/add_funds')
 def show_add_funds():
     return show_page("AddFunds.html", "Add Funds"  )
 
 
+# call that requests the user's funds be updated
 @app.route('/req_funds', methods=['POST'])
 def add_funds():
     amount = flask.request.form.get('currency-field')
@@ -178,13 +187,13 @@ def add_funds():
     return flask.redirect('/dashboard')
 
 
-#call to DB to get the amount of cash that this user has
+# call to DB to get the amount of cash that this user has
 @app.route('/get_funds')
 def get_funds():
     return datastoreHelper.get_cash(get_user())
 
 
-# method used to add to the wardrobe
+# method used to add a position into the db
 @app.route('/add_position', methods=['POST'])
 def add_item():
     ticker = flask.request.form.get('ticker')
@@ -210,10 +219,10 @@ def get_user():
 
 
 # adapted from week6p9, show page is a wrapper for render_template, it allows us to easily specify what we pass to the template
-def show_page(page, title, show=True, errors=None):
+def show_page(page, title, stock=None, show=True, errors=None):
     # always need a page, page title, and user to pass into template
     # errors is an array of error strings, to be displayed in the errors field in the event of errors *note: errors*
-    return flask.render_template(page, page_title=title, user=get_user(), show=show, errors=errors)
+    return flask.render_template(page, page_title=title, user=get_user(), stock=stock, show=show, errors=errors)
 
 
 # Hashes the password using sha256 from hashlib

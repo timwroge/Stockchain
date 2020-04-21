@@ -68,7 +68,8 @@ def load_user(email, passwordhash):
         return User.User(user['username'], user['email'])
     return None
 
-#adds a position for this user to the db
+
+# adds a position for this user to the db
 def add_position(user, item):
     # get datastore client
     client = get_client()
