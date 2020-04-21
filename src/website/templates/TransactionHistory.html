@@ -86,15 +86,15 @@
             transaction_section.appendChild(data_table)
     }
 
-    let xmlHttp = createXmlHttp();
-    xmlHttp.onreadystatechange = function () {
+    let xmlReq = createXmlHttp();
+    xmlReq.onreadystatechange = function () {
         console.log("Trying to get data");
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            // note that you can check xmlHttp.status here for the HTTP response code
+        if (xmlReq.readyState == 4 && xmlReq.status == 200) {
+            // note that you can check xmlReq.status here for the HTTP response code
             console.log("Got something!");
             console.log(".. done getting data");
             // check if it is not defined
-            transactions = JSON.parse(xmlHttp.responseText);
+            transactions = JSON.parse(xmlReq.responseText);
             console.log(transactions)
             console.log("heres the object;");
             // we will change this stuff after we get the object
@@ -102,8 +102,8 @@
 
         }
     };
-    xmlHttp.open("GET", 'get_transaction_history' , true);
-    xmlHttp.send();
+    xmlReq.open("GET", 'get_transaction_history' , true);
+    xmlReq.send();
     // the transaction object will have { time, shares, stock_ticker, type , value} p
 //a={"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}
 //b={"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}
