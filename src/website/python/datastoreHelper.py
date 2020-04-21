@@ -107,7 +107,7 @@ def get_positions(user):
     for position in q.fetch():
         positions.append({
             "shares": position['shares'],
-            "stock_ticker": position['Ticker'],
+            "ticker": position['Ticker'],
             "type": position['positionType'],
             "value": 0
         })
@@ -132,7 +132,7 @@ def get_history(user):
         history.append({
             "time" : historyItem['interactionTime'],
             "shares" : historyItem['shares'],
-            "stock_ticker" : historyItem['ticker'],
+            "ticker" : historyItem['ticker'],
             "type" : historyItem['interactionType'],
             "value" : historyItem['price']
         })
