@@ -53,38 +53,6 @@
         <datalist id="tickers">
         </datalist>
         </center>
-    <script type="text/javascript" >
-        // this populates the search engine results
-
-    let xmlHttp = createXmlHttp();
-    xmlHttp.onreadystatechange = function () {
-        console.log("Trying to get data");
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            // note that you can check xmlHttp.status here for the HTTP response code
-            console.log("Got something!");
-            console.log(".. done getting data");
-            // check if it is not defined
-            tickers  = JSON.parse(xmlHttp.responseText);
-            console.log("heres the object;");
-
-            dataList = document.getElementById("tickers");
-            // Loop over the JSON array.
-            tickers.forEach(function(item)
-            {
-                    // Create a new <option> element.
-                    var option = document.createElement('option');
-                    // Set the value using the item in the JSON array.
-                    option.value = item;
-                    // Add the <option> element to the <datalist>.
-                    dataList.appendChild(option);
-            }
-          );
-        }
-    };
-    xmlHttp.open("GET", 'get_tickers' , true);
-    xmlHttp.send();
-    </script>
-
           <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
   <div id="tradingview_914d0" style="height: 500px"></div>
