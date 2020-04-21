@@ -48,6 +48,7 @@ def save_user(user, passwordhash):
     entity['username'] = user.username
     entity['email'] = user.email
     entity['passwordhash'] = passwordhash
+    entity['Cash'] = 1000.00
 
     # save the entity to the datastore
     client.put(entity)
