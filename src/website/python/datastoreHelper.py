@@ -114,26 +114,28 @@ def get_positions(user):
     array_json = json.dumps(positions, indent=4) #, cls=dataClasses.ClothingEncoder)
     return array_json
 
-############################################ Examples
+
 
 def get_history(user):
     #get datastor client
     client = get_client
 
-    q = client.query(kind = 'Position')
+    q = client.query(kind = 'History')
     q.add_filter('Username', '=', user)
 
 
-    positions = []
+    history = []
     # of positions fetched
-    for positions in q.fetch():
-        positions.append([
-            "Ticker" : position.Ticker,
-            "positionType" : position.positionType,
-            "shares" : position.shares
+    for historyItem in q.fetch():
+        history.append([
+            "Ticker" : historyItem.ticker,
+            "InteractionType" : historyItem.interactionType,
+            "shares" : historyItem.shares
+            "InteractionTime" : historyItem.interactionTime
+            "Price" : historyItem.price
         ])
 
     
 
-    array_json = json.dumps(positions, indent=4)
+    array_json = json.dumps(history, indent=4)
     return arroy_json
