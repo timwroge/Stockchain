@@ -8,10 +8,10 @@ class Stock(object):
         # del self
         # self = new
         ticker_socket = yfinance.Ticker(self.ticker)
-        if(ticker_socket):
+        try:
             price = ticker_socket.get_info()['ask']
             return price
-        else:
+        except Exception:
             return "Not a valid ticker symbol" 
     def getTicker(self):
         return self.ticker
