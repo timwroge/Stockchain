@@ -71,14 +71,9 @@
     {% extends '_base.html' %}
 
     {% block content %}
-        <!--h1> Add Positions to Portfolio:{{user}}</h1>
-        <nav class="navbar px-5 py-3 w-bg-color-1">
-            {% if user %}
-                <a href="/signout" class="nav-link p-3">Sign Out</a> 
-            {% endif %}
-        </nav-->
+        <h1> Add Positions to Portfolio:{{user}}</h1>
 <h2>
-<div id="logo_holder" >
+<span id="logo_holder" >
 </div>
  Information about <span id="company_name"></span> </h2>
         <p>{{stock}}</p>
@@ -93,23 +88,30 @@
                 </div>
                 <div class="group">
                   <!--  shares -->
-                    <input type="number" value=1  min=1 data-toggle="tooltip" data-placement="right" title="Please enter a number" id="email" name="email" placeholder="Shares">
+                  <span>Number of Shares: </span>
+                    <input type="number" value=1  min=1 data-toggle="tooltip" data-placement="right" title="Please enter a number" id="email" name="shares" placeholder="Shares">
                     <span class="highlight"></span>
                     <span class="bar"></span>
                 </div>
                 <div class="group">
                   <!-- type of transaction -->
+                  <span>Type of transaction: </span>
                     <select class="mdb-select md-form colorful-select dropdown-primary" searchable="Type of transaction">
                       <option value="buy">Buy</option>
                       <option value="short">Short</option>
-                      <option value="sell">Sell</option>
                     </select>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Submit" class="btn btn-primary w-bg-color-1">
+                    <input name="buy" type="submit"  style="height: 40px; width: 150px; left: 250; top: 250;" value="Buy Shares" class="btn btn-primary w-bg-color-2">
                 </div>
+            {% if can_sell %}
+                    <p>Or</p>
+                <div class="form-group">
+                    <input name="sell" type="sell" style="height: 40px; width: 150px; left: 250; top: 250;" value="Sell Shares" class="btn btn-primary w-bg-color-1">
+                </div>
+            {% endif %}
             </form>
         <datalist id="tickers">
         </datalist>
