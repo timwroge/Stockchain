@@ -10,7 +10,11 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
 	</head>
 	<body>
+
         <!-- MAIN CONTENT -->
+    {% extends '_base.html' %}
+
+    {% block content %}
         <h1> Add Positions to Portfolio:{{user}}</h1>
         <nav class="navbar px-5 py-3 w-bg-color-1">
             {% if user %}
@@ -82,7 +86,7 @@
 <div id="stock_info" >
 </div>
 </center>
-        {% block content %}{% endblock %}
+{% endblock %}
     </body>
     <!-- scrolling for html markers --> 
     <script type="text/javascript">
