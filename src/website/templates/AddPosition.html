@@ -19,7 +19,39 @@
         </nav>
 <div id="logo_holder" >
 </div>
-        <p>{{stock}} </p>
+        <p>{{stock}}</p>
+        <center>
+            <form class="form-container" method="post" action="/register">
+                <h1 align="center">Add a new position</h1>
+                <div class="group">
+                    <!-- Username -->       
+                    <input type="text" data-toggle="tooltip" data-placement="right" title="Username can contain any letters or numbers, without spaces"  id="username" name="username" placeholder="Stock Ticker"/>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="group">
+                  <!-- E-mail -->
+                    <input type="email" data-toggle="tooltip" data-placement="right" title="Please provide your email" id="email" name="email" placeholder="Shares">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="group">
+                  <!-- Password-->
+                    <input type="type" data-toggle="tooltip" data-placement="right" title="Password should be at least 4 characters" id="password" name="password" placeholder="Type">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="group">
+                  <!-- Password -->
+                    <input type="password" data-toggle="tooltip" data-placement="right" title="Please confirm password" id="password_confirm" name="password_confirm" placeholder="Password (confirm)">
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary w-bg-color-1">
+                </div> 
+            </form>
+        </center>
 
           <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
