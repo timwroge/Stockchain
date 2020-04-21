@@ -86,8 +86,6 @@
 <div id="stock_info" >
 </div>
 </center>
-{% endblock %}
-    </body>
     <!-- scrolling for html markers --> 
     <script type="text/javascript">
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -144,3 +142,5 @@
     xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
     xmlHttp.send();
     </script>
+{% endblock %}
+    </body>
