@@ -134,6 +134,17 @@ def signout():
     flask.session['user'] = None
     return flask.redirect('/')
 
+# signs out the user, setting their session to None and redirecting to the home page
+@app.route('/transaction_history')
+def show_transaction_history():
+    return show_page("TransactionHistory.html", "Transaction History"  )
+
+@app.route('/get_transaction_history')
+def get_transaction_history():
+    return json.dumps([
+        {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}, \
+        {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 101}, \
+                ] )
 
 # when a user signs in, the username is in the session[user], so we can get it at any time
 def get_user():
