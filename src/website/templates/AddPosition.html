@@ -80,25 +80,26 @@
         <center>
             <form class="form-container" method="post" action="/add_position">
                 <h1 align="center">Add a new position</h1>
+                    <h2 align="center">Current value of {{stock}} is ${{curr_val}}</h2>
                 <div class="group">
                     <!-- Ticker -->
-                    <input type="hidden" name="ticker"  value="{{stock}} "/>
+                    <input type="hidden" name="ticker"  value="{{stock}}"/>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                 </div>
                 <div class="group">
                   <!--  shares -->
                   <span>Number of Shares: </span>
-                    <input type="number" value=1  min=1 data-toggle="tooltip" data-placement="right" title="Please enter a number" id="email" name="shares" placeholder="Shares">
+                    <input type="number" value=1  min=1 data-toggle="tooltip" data-placement="right" title="Please enter a number"name="shares" placeholder="Shares">
                     <span class="highlight"></span>
                     <span class="bar"></span>
                 </div>
                 <div class="group">
                   <!-- type of transaction -->
                   <span>Type of transaction: </span>
-                    <select class="mdb-select md-form colorful-select dropdown-primary" searchable="Type of transaction">
-                      <option value="buy">Buy</option>
-                      <option value="short">Short</option>
+                    <select class="mdb-select md-form colorful-select dropdown-primary" name="positionType" searchable="Type of transaction">
+                      <option value="Long">Buy</option>
+                      <option value="Short">Short</option>
                     </select>
                     <span class="highlight"></span>
                     <span class="bar"></span>
@@ -106,12 +107,10 @@
                 <div class="form-group">
                     <input name="buy" type="submit"  style="height: 40px; width: 150px; left: 250; top: 250;" value="Buy Shares" class="btn btn-primary w-bg-color-2">
                 </div>
-            {% if can_sell %}
                     <p>Or</p>
                 <div class="form-group">
-                    <input name="sell" type="sell" style="height: 40px; width: 150px; left: 250; top: 250;" value="Sell Shares" class="btn btn-primary w-bg-color-1">
+                    <input name="sell" type="submit" style="height: 40px; width: 150px; left: 250; top: 250;" value="Sell Shares" class="btn btn-primary w-bg-color-1">
                 </div>
-            {% endif %}
             </form>
         <datalist id="tickers">
         </datalist>

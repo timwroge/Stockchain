@@ -51,7 +51,10 @@ def createAcct():
 @app.route('/view_stock', methods=[ 'POST', 'GET' ])
 def view_stock():
     search = flask.request.args.get('search').upper()
-    return show_page('AddPosition.html', ('Viewing ' + search), stock=search)
+    s = Stock(search)
+    # check and get the number of shares they have for this ticker (if they do) pass in can_sell
+
+    return show_page('AddPosition.html', ('Viewing ' + search), stock=search, curr_val=s.getCurrentPrice())
 
 
 # 'register' method that performs registration of user
@@ -193,22 +196,33 @@ def get_funds():
     return datastoreHelper.get_cash(get_user())
 
 
-# method used to add a position into the db
+# method used to add a position into the db (buy or sell)
 @app.route('/add_position', methods=['POST'])
 def add_item():
-    ticker = flask.request.form.get('ticker')
+    ticker = flask.request.form.get('ticker').upper()
+    s = Stock(ticker)
+    currVal = s.getCurrentPrice()
     positionType = flask.request.form.get('positionType')
     shares = flask.request.form.get('shares')
 
     # form position
     position = {
         'ticker': ticker,
+        'currVal': currVal,
         'positionType': positionType,
         'shares': shares
     }
 
-    # pass position and username to add_position in datastore
-    datastoreHelper.add_position(get_user(), position)
+    # if they submitted the form via the buy shares button - BUY
+    if flask.request.form.get('buy'):
+        # NEED TO CHECK THAT THEY CAN AFFORD THIS
+        print("Buying ", shares, " shares of ", ticker, " at $", currVal)
+        datastoreHelper.buy_position(get_user(), position)
+    # if they submitted the form via the sell shares button - SELL
+    if flask.request.form.get('sell'):
+        # NEED TO CHECK IF THEY HAVE THE SHARES THEY WANT TO SELL
+        print("Selling ", shares, " shares of ", ticker, " at $", currVal)
+        datastoreHelper.sell_position(get_user(), position)
 
     return flask.redirect('/dashboard')
 
@@ -219,10 +233,10 @@ def get_user():
 
 
 # adapted from week6p9, show page is a wrapper for render_template, it allows us to easily specify what we pass to the template
-def show_page(page, title, stock=None, show=True, errors=None):
+def show_page(page, title, stock=None, curr_val=None, show=True, errors=None):
     # always need a page, page title, and user to pass into template
     # errors is an array of error strings, to be displayed in the errors field in the event of errors *note: errors*
-    return flask.render_template(page, page_title=title, user=get_user(), stock=stock, show=show, errors=errors)
+    return flask.render_template(page, page_title=title, user=get_user(), stock=stock, curr_val=curr_val, show=show, errors=errors)
 
 
 # Hashes the password using sha256 from hashlib

@@ -71,28 +71,98 @@ def load_user(email, passwordhash):
 
 
 # adds a position for this user to the db
-def add_position(user, item):
+def buy_position(user, position):
     # get datastore client
     client = get_client()
 
-    # idea is to use a transaction that either gets the entity or creates it if there is none
     with client.transaction():
-        # key is based on Position kind, datastore will give us an int identifier
-        key = client.key('Position')
+        # query to see if they have a position already
+        q = client.query(kind='Position')
+        q.add_filter('Username', '=', user)
+        q.add_filter('Ticker', '=', position['ticker'])
+        q.add_filter('positionType', '=', position['positionType'])
 
-        # Make a Position entity for this item
-        position = datastore.Entity(key)
+        # get the matching user entity
+        results = list(q.fetch())
+        pos = None
+        cost = int(position['shares']) * int(position['currVal'])
 
-        # User who owns the position (for query)
-        position['username'] = user
-        # the ticker
-        position['Ticker'] = item.ticker
-        # the positionType
-        position['positionType'] = item.positionType
-        # number of shares
-        position['shares'] = item.shares
-        # put item into datastore
-        client.put(position)
+        # ensure that they have enough money
+        if(cost <= json.loads(get_cash(user))):
+            if results:
+                print("Buying more shares of an existing position")
+                # if there is an existing position, set the entity
+                pos = results[0]
+                nShares = int(position['shares']) + pos['shares']
+                pos.update({
+                    'shares': nShares
+                })
+            else:
+                print("Buying a new position")
+                # if there is no existing position, we will create one
+                key = client.key('Position')
+                pos = datastore.Entity(key)
+                pos.update({
+                    'Username': user,
+                    'Ticker': position['ticker'],
+                    'positionType': position['positionType'],
+                    'shares': int(position['shares'])
+                })
+
+            client.put(pos)
+
+            # make a call that removes the money they spent
+            if(int(position['shares']) > 0):
+                print("Removing $", cost, " from users account for ", int(position['shares']), " at $", int(position['currVal']), " per share")
+                add_cash(user, str(cost*-1))
+        else:
+            print("Insufficient funds")
+
+
+# attempts a sell of the given position
+def sell_position(user, position):
+    # get datastore client
+    client = get_client()
+
+    # want to sell shares amount of ticker stock positions that they own for shares*currVal
+
+    with client.transaction():
+        # query to see if they own this position 
+        q = client.query(kind='Position')
+        q.add_filter('Username', '=', user)
+        q.add_filter('Ticker', '=', position['ticker'])
+        q.add_filter('positionType', '=', "Long")
+
+        # get the matching user entity
+        results = list(q.fetch())
+        earnings = 0
+        nShares = -1
+        pos = None
+
+        if results:
+            print("Selling shares of an existing position")
+            # if there is an existing position we can sell shares
+            pos = results[0]
+            if(pos['shares'] >= int(position['shares'])):
+                # extra check that they have enough shares - this should be verified already
+                # decrement amount of shares they have left, get earnings
+                nShares = pos['shares'] - int(position['shares'])
+                earnings = int(position['shares']) * int(position['currVal'])
+                # update the position
+                pos.update({
+                    'shares': nShares
+                })
+                # write back
+                client.put(pos)
+
+        #if nshares is 0, they sold all their shares, we can delete this position
+        if(nShares == 0):
+            print("Sold position has no more shares, deleting position")
+            client.delete(pos.key)
+        # and add the cash to their account
+        if(earnings > 0):
+            print("Adding $", earnings, " to users account")
+            add_cash(user, str(earnings))
 
 
 # get json array of positions for this user, to return to the portfolio page
@@ -180,8 +250,12 @@ def get_cash(user):
     q = client.query(kind = 'User')
     q.add_filter('username', '=', user)
 
-    # only one user will be returned so this is all I need
-    cash = q.fetch()['cash']
+    # get the matching user entity
+    results = list(q.fetch())
+    usr = results[0]
+    cash = usr['Cash']
+
+    print("Cash is ", cash)
 
     # I hope that this still works? not srue if anything is different about this
     cash_string = json.dumps(cash, indent=4)
