@@ -164,6 +164,32 @@ def get_porfolio_positions():
 def show_add_funds():
     return show_page("AddFunds.html", "Add Funds"  )
 
+# method to get all positions for this use
+@app.route('/get_positions')
+def get_positions():
+    return datastoreHelper.get_positions(get_user())
+
+
+# method used to add to the wardrobe
+@app.route('/add_position', methods=['POST'])
+def add_item():
+    ticker = flask.request.form.get('ticker')
+    positionType = flask.request.form.get('positionType')
+    shares = flask.request.form.get('shares')
+
+    # form position
+    position = {
+        'ticker': ticker,
+        'positionType': positionType,
+        'shares': shares
+    }
+
+    # pass position and username to add_position in datastore
+    datastoreHelper.add_position(get_user(), position)
+
+    return flask.redirect('/dashboard')
+
+
 # when a user signs in, the username is in the session[user], so we can get it at any time
 def get_user():
     return flask.session.get('user', None)

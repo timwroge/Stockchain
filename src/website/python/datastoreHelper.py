@@ -1,4 +1,6 @@
 from google.cloud import datastore
+from datetime import datetime
+import json
 
 # must import the relevant objects
 import sys
@@ -65,3 +67,184 @@ def load_user(email, passwordhash):
     for user in q.fetch():
         return User.User(user['username'], user['email'])
     return None
+
+#adds a position for this user to the db
+def add_position(user, item):
+    # get datastore client
+    client = get_client()
+
+    # idea is to use a transaction that either gets the entity or creates it if there is none
+    with client.transaction():
+        # key is based on Position kind, datastore will give us an int identifier
+        key = client.key('Position')
+
+        # Make a Position entity for this item
+        position = datastore.Entity(key)
+
+        # User who owns the position (for query)
+        position['username'] = user
+        # the ticker
+        position['Ticker'] = item.ticker
+        # the positionType
+        position['positionType'] = item.positionType
+        # number of shares
+        position['shares'] = item.shares
+        # put item into datastore
+        client.put(position)
+
+
+# get json array of positions for this user, to return to the portfolio page
+def get_positions(user):
+    # get datastore client
+    client = get_client()
+
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+
+    positions = []
+    # for each Position fetched, add it to array
+    for position in q.fetch():
+        positions.append({
+            "Ticker": position.Ticker,
+            "positionType": position.positionType,
+            "shares": position.shares
+        })
+
+    # add each item into the array as a dict`
+    # then we turn the entire array into JSON and send it to the client
+    array_json = json.dumps(positions, indent=4) #, cls=dataClasses.ClothingEncoder)
+    return array_json
+
+
+
+def get_history(user):
+    #get datastor client
+    client = get_client
+
+    q = client.query(kind = 'History')
+    q.add_filter('username', '=', user)
+
+
+    history = []
+    # of positions fetched
+    for historyItem in q.fetch():
+        history.append({
+            "Ticker" : historyItem.ticker,
+            "InteractionType" : historyItem.interactionType,
+            "shares" : historyItem.shares,
+            "InteractionTime" : historyItem.interactionTime,
+            "Price" : historyItem.price
+        })
+
+    array_json = json.dumps(history, indent=4)
+    return array_json
+
+
+
+#adds a history element for this user to the db
+def add_history(user, item):
+    # get datastore client
+    client = get_client()
+
+    # idea is to use a transaction that either gets the entity or creates it if there is none
+    with client.transaction():
+        # key is based on Position kind, datastore will give us an int identifier
+        key = client.key('History')
+
+        # Make a Position entity for this item
+        history = datastore.Entity(key)
+
+        # User who owns the position (for query)
+        history['username'] = user
+        # the ticker
+        history['Ticker'] = item.ticker
+        # the positionType
+        history['positionType'] = item.positionType
+        # number of shares
+        history['shares'] = item.shares
+        # price of stock
+        history['price'] = item.price
+        # get datetime
+        history['interactionTime'] = datetime.now()
+
+        # put item into datastore
+        client.put(history)
+
+
+#return the user's cash amount
+def get_cash(user):
+    #get datastor client
+    client = get_client
+
+    q = client.query(kind = 'User')
+    q.add_filter('username', '=', user)
+
+    # only one user will be returned so this is all I need
+    cash = q.fetch().cash
+
+    # I hope that this still works? not srue if anything is different about this
+    array_json = json.dumps(cash, indent=4)
+    return array_json
+
+# This will take in a cash amount and user and add it to the amount in the datbase!
+def add_cash(user, cash):
+    #get datastore client
+    client = get_client()
+
+    #creates a query based on the data
+    q = client.query(kind='User')
+    q.add_filter('username', '=', user)
+
+    # This will only return one, but I am not sure what q.fetch returns
+    for usr in q.fetch():
+        # I don't think this can be more than one
+        task = client.get(usr.key)
+        currMoney = task[cash]
+        task['shares'] = currMoney + cash
+        break
+
+
+    client.put(task)
+
+#remove position
+def remove_position(user, ticker):
+    #get datastore client
+    client = get_client()
+
+    #creates a query based on the data
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', ticker)
+
+
+    for item in q.fetch():
+        # I don't think this can be more than one
+        client.delete(item.key)
+        break
+    
+    #I was confused why this code was here
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', ticker)
+
+# update position 
+# I am not sure what obj will be passed into this
+def update_position(user, ticker, shares):
+    #get datastore client
+    client = get_client()
+
+    #creates a query based on the data
+    q = client.query(kind='Position')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', ticker)
+
+    # This will only return one, but I am not sure what q.fetch returns
+    for pos in q.fetch():
+        # I don't think this can be more than one
+        task = client.get(pos.key)
+        currShares = task[shares]
+        task[shares] = currShares + shares
+        break
+
+
+    client.put(task)
