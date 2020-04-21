@@ -67,6 +67,52 @@ def load_user(email, passwordhash):
         return User.User(user['username'], user['email'])
     return None
 
+
+#adds a position for this user to the db
+def add_position(user, item):
+    # get datastore client
+    client = get_client()
+
+    # idea is to use a transaction that either gets the entity or creates it if there is none
+    with client.transaction():
+        # key is based on Position kind, datastore will give us an int identifier
+        key = client.key('Position')
+
+        # Make a Position entity for this item
+        position = datastore.Entity(key)
+
+        # User who owns the position (for query)
+        position['Username'] = user
+        # the positionType
+        position['positionType'] = item.positionType
+        # number of shares
+        position['shares'] = item.shares
+        # put item into datastore
+        client.put(position)
+
+
+# get json array of positions for this user, to return to the portfolio page
+def get_positions(user):
+    # get datastore client
+    client = get_client()
+
+    q = client.query(kind='Position')
+    q.add_filter('Username', '=', user)
+
+    positions = []
+    # for each Position fetched, add it to array
+    for position in q.fetch():
+        positions.append({
+            "Ticker": position.Ticker,
+            "positionType": position.positionType,
+            "shares": position.shares
+        })
+
+    # add each item into the array as a dict`
+    # then we turn the entire array into JSON and send it to the client
+    array_json = json.dumps(positions, indent=4) #, cls=dataClasses.ClothingEncoder)
+    return array_json
+
 ############################################ Examples
 
 # Add item
