@@ -23,12 +23,8 @@
 
 	</head>
 	<body>
-        <!-- MAIN CONTENT -->
-        <h1> Add Positions to Portfolio:{{user}}</h1>
-        <nav class="navbar px-5 py-3 w-bg-color-1">
-            {% if user %}
-                <a href="/signout" class="nav-link p-3">Sign Out</a> 
-            {% endif %}
+    {% extends '_base.html' %}
+        {% block content %}
         </nav>
 <div id="logo_holder" >
 </div>
@@ -37,7 +33,6 @@
 <div id="transactions" >
 </div>
 </center>
-        {% block content %}
 
     <!-- scrolling for html markers --> 
     <script type="text/javascript">
