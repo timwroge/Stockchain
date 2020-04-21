@@ -10,9 +10,14 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script type="text/javascript" src="/static/ajax_helper_functions.js"></script>
 <style> 
+    table {
+      table-layout: fixed ;
+      width: 100% ;
+    }
      th, td, tr{
       padding: 15px;
-      text-align: left;
+      text-align: center;
+	  table-layout: fixed;
     }
     tr:nth-child(odd) {
       background-color: #CCCCCC;
@@ -89,159 +94,12 @@
   	  </div> </div> <div class="col-sm-8 mt-4 border-left">
       <h1 class="mb-3 mr-3">Positions</h1>
       <div class="container" id="positions-container">
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-
-      	<div class="stock">
-      		<h4>Stock Name (STNM)</h4>
-  			<div class="form-group row portfolio-row mt-1">
-    	  	  <label for="txtValue" class="col-sm-3 col-form-label font-weight-bold">Value:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtValue" value="0.00">
-    	      </div>
-    	  	  <label for="txtShares" class="col-sm-3 col-form-label font-weight-bold">Shares:</label>
-    	  	  <div class="col-sm-3">
-      			<input type="text" readonly class="form-control-plaintext" class="txtShares" value="0">
-    	      </div>
-  		    </div>
-      	</div>
-    <div id="transactions" >
-    </div>
-  		
+        <div id="transactions" >
+        </div>
 	</div>
     </div>
   </div>
 </div>
-
-<footer class="footer bg-dark">
-  <div class="container-fluid text-center">
-    <p>No Copyright 2020</p>
-  </div>
-</footer>
     <script type="text/javascript" >
     // get the data on the ticker symbol passed in
     function set_data_member(_document_object, _value, _row) {
@@ -282,15 +140,15 @@
             transaction_section.appendChild(data_table)
     }
 
-    let xmlHttp = createXmlHttp();
-    xmlHttp.onreadystatechange = function () {
+    let xmlReq = createXmlHttp();
+    xmlReq.onreadystatechange = function () {
         console.log("Trying to get data");
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-            // note that you can check xmlHttp.status here for the HTTP response code
+        if (xmlReq.readyState == 4 && xmlReq.status == 200) {
+            // note that you can check xmlReq.status here for the HTTP response code
             console.log("Got something!");
             console.log(".. done getting data");
             // check if it is not defined
-            transactions = JSON.parse(xmlHttp.responseText);
+            transactions = JSON.parse(xmlReq.responseText);
             console.log(transactions)
             console.log("heres the object;");
             // we will change this stuff after we get the object
@@ -298,13 +156,17 @@
 
         }
     };
-    xmlHttp.open("GET", 'get_transaction_history' , true);
-    xmlHttp.send();
+    xmlReq.open("GET", 'get_portfolio_positions' , true);
+    xmlReq.send();
+    console.log("Generating transaction table" )
     // the transaction object will have { time, shares, stock_ticker, type , value} p
-//a={"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}
-//b={"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}
-    //set_up_table([  a,b])
     </script>
+
+<footer class="footer bg-dark">
+  <div class="container-fluid text-center">
+    <p>Copyright 2020</p>
+  </div>
+</footer>
 {% endblock %}
 </body>
 </html>

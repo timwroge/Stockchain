@@ -145,6 +145,21 @@ def get_transaction_history():
         {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}, \
         {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 101}, \
                 ] )
+
+@app.route('/get_portfolio_positions')
+def get_porfolio_positions():
+    return json.dumps([
+        {"shares": 2, "stock_ticker": "TSLA"  , "type": "long"  , "value": "$200" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AVGO"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+                ] )
 @app.route('/add_funds')
 def show_add_funds():
     return show_page("AddFunds.html", "Add Funds"  )
