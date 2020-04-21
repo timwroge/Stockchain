@@ -83,6 +83,8 @@ def add_position(user, item):
 
         # User who owns the position (for query)
         position['Username'] = user
+        # the ticker
+        position['Ticker'] = item.ticker
         # the positionType
         position['positionType'] = item.positionType
         # number of shares
