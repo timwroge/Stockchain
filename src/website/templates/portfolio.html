@@ -12,15 +12,10 @@
 </head>
 
 <body>
-  
-    <div id="nav-placeholder">
-    </div>
+{% extends 'base.html' %}
 
-	<script>
-	$(function(){
-	  $("#nav-placeholder").load("/static/nav.html");
-	});
-	</script>
+
+{% block content %}
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-4 text-left mt-4"> 
@@ -78,10 +73,7 @@
 </div>
 <!-- TradingView Widget END -->
 <!--<img src="images/graph.jpg" alt="Image">-->
-  	  </div>
-    </div>
-
-    <div class="col-sm-8 mt-4 border-left">
+  	  </div> </div> <div class="col-sm-8 mt-4 border-left">
       <h1 class="mb-3 mr-3">Positions</h1>
       <div class="container" id="positions-container">
 
@@ -235,5 +227,6 @@
     <p>No Copyright 2020</p>
   </div>
 </footer>
+{% endblock %}
 </body>
 </html>

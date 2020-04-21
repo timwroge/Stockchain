@@ -9,6 +9,64 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
 	</head>
 	<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Stockchain</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard">View Portfolio <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/add_funds">Add Funds</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/transaction_history">Transaction History</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signout">Logout</a>
+          </li>
+        </ul>
+        <form action="/add_position" class="form-inline my-2 my-lg-0">
+          <input id="search_entry"  list="tickers" name="search" placeholder="Add stocks to portfolio" >
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    <datalist id="tickers">
+    </datalist>
+        <script type="text/javascript" >
+            // this populates the search engine results
+            tickers = [ "TSLA" , "BRK.A", "GOOG", "NVDA"   ]
+
+        let xmlHttp = createXmlHttp();
+        xmlHttp.onreadystatechange = function () {
+            console.log("Trying to get data");
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                // note that you can check xmlHttp.status here for the HTTP response code
+                console.log("Got something!");
+                console.log(".. done getting data");
+                // check if it is not defined
+                tickers  = JSON.parse(xmlHttp.responseText);
+                console.log("heres the object;");
+
+                dataList = document.getElementById("tickers");
+                // Loop over the JSON array.
+                tickers.forEach(function(item)
+                {
+                        // Create a new <option> element.
+                        var option = document.createElement('option');
+                        // Set the value using the item in the JSON array.
+                        option.value = item;
+                        // Add the <option> element to the <datalist>.
+                        dataList.appendChild(option);
+                }
+              );
+            }
+        };
+        xmlHttp.open("GET", 'get_tickers' , true);
+        xmlHttp.send();
+        </script>
+     <datalist id="json_datalist"></datalist>
+      </div>
+    </nav>
         {% block content %}{% endblock %}
     </body>
     <!-- scrolling for html markers --> 
