@@ -67,8 +67,8 @@
         // get the data on the ticker symbol passed in
         function set_data_member(document_object, value, row) {
             document_object.innerText=value
-            row.appendChild(document_object) 
-        } 
+            row.appendChild(document_object)
+        }
 
     let xmlHttp = createXmlHttp();
     xmlHttp.onreadystatechange = function () {
@@ -104,6 +104,6 @@
             company_information_section.appendChild(data_table)
         }
     };
-    xmlHttp.open("GET", 'get_stock_data/{{stock}} ' , true);
+    xmlHttp.open("GET", 'get_transaction_history' , true);
     xmlHttp.send();
     </script>
