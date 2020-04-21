@@ -5,7 +5,9 @@ import json
 # must import the relevant objects
 import sys
 sys.path.insert(1, '/src/website/python')
+sys.path.insert(1, '/src/application/')
 from src.website.python import User
+from src.application.stock import Stock
 
 # this is a helper class that main.py uses to handle calls to the datastore
 
@@ -180,7 +182,7 @@ def get_positions(user):
             "shares": position['shares'],
             "ticker": position['Ticker'],
             "type": position['positionType'],
-            "value": 0
+            "value": "${}".format(Stock(position['Ticker']).getCurrentPrice())
         })
     # value? -> value we need to get from stock data?
 
