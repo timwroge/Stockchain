@@ -199,15 +199,15 @@ def add_cash(user, cash):
     for usr in q.fetch():
         # I don't think this can be more than one
         task = client.get(usr.key)
-        currMoney = tash[cash]
-        task[shares] = currMoney + cash
+        currMoney = task[cash]
+        task['shares'] = currMoney + cash
         break
 
 
     client.put(task)
 
 #remove position
-def remove_position(user, ticker)
+def remove_position(user, ticker):
     #get datastore client
     client = get_client()
 
@@ -229,7 +229,7 @@ def remove_position(user, ticker)
 
 # update position 
 # I am not sure what obj will be passed into this
-def update_position(user, ticker, shares)
+def update_position(user, ticker, shares):
     #get datastore client
     client = get_client()
 
@@ -242,7 +242,7 @@ def update_position(user, ticker, shares)
     for pos in q.fetch():
         # I don't think this can be more than one
         task = client.get(pos.key)
-        currShares = tash[shares]
+        currShares = task[shares]
         task[shares] = currShares + shares
         break
 
