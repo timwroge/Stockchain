@@ -216,6 +216,7 @@ def get_history(user):
         })
 
     array_json = json.dumps(history, indent=4, default=str)
+    print(array_json)
     return array_json
 
 
