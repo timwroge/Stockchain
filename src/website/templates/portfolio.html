@@ -17,20 +17,17 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">View Portfolio <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/dashboard">View Portfolio <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Add Funds</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Add Positions</a>
+        <a class="nav-link" href="/add_funds">Add Funds</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/signout">Logout</a>
       </li>
     </ul>
     <form action="/add_position" class="form-inline my-2 my-lg-0">
-      <input id="search_entry"  list="tickers" name="search" placeholder="Search" >
+      <input id="search_entry"  list="tickers" name="search" placeholder="Add stocks to portfolio" >
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 <datalist id="tickers">
