@@ -1,23 +1,44 @@
 <html>
 	<head>
-		<title>{{page_title}}</title>
-        <!-- Bootstrap CDN -->
+    <script type="text/javascript" src="/static/ajax_helper_functions.js"></script>
+
+		<title>{{page_title}}</title> <!-- Bootstrap CDN -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> 
+<style> 
+     th, td, tr{
+      padding: 15px;
+      text-align: left;
+    }
+    tr:nth-child(odd) {
+      background-color: #CCCCCC;
+    }
+
+    tr:nth-child(even) {
+      background-color: #ffffff;
+    }
+</style>
+
 	</head>
 	<body>
         <!-- MAIN CONTENT -->
-        <h1> Transaction History for {{user}}</h1>
+        <h1> Add Positions to Portfolio:{{user}}</h1>
         <nav class="navbar px-5 py-3 w-bg-color-1">
             {% if user %}
                 <a href="/signout" class="nav-link p-3">Sign Out</a> 
             {% endif %}
         </nav>
-        {% block content %}{% endblock %}
-    </body>
+<div id="logo_holder" >
+</div>
+<h2> Transaction History <span id="company_name"></span> </h2>
+<center>
+<div id="transactions" >
+</div>
+</center>
+        {% block content %}
+
     <!-- scrolling for html markers --> 
     <script type="text/javascript">
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -29,3 +50,69 @@
             });
         });
     </script>
+
+    <script type="text/javascript" >
+    // get the data on the ticker symbol passed in
+    function set_data_member(_document_object, _value, _row) {
+        _document_object.innerText=_value
+        _row.appendChild(_document_object)
+    }
+    function set_up_table(transactions) {
+            console.log(transactions)
+            transaction_section = document.getElementById("transactions");
+            var data_table = document.createElement('table')
+            // make first row
+            for (var transaction_index in transactions) {
+                transaction= transactions[transaction_index] 
+                //    // Loop over the JSON array.
+                var row = document.createElement('tr')
+                console.log(transaction)
+                for (key in transaction) {
+                    console.log(key)
+                    var entry = document.createElement('th')
+                    set_data_member(entry, key.toUpperCase() , row)
+                }
+                data_table.appendChild(row)
+                break;
+            }
+            // make all other rows
+            for (var transaction_index in transactions) {
+                transaction= transactions[transaction_index] 
+                //    // Loop over the JSON array.
+                var row = document.createElement('tr')
+                console.log(transaction)
+                for (key in transaction) {
+                    console.log(key)
+                    var entry = document.createElement('th')
+                    set_data_member(entry, transaction[key], row)
+                }
+                data_table.appendChild(row)
+            }
+            transaction_section.appendChild(data_table)
+    }
+
+    let xmlHttp = createXmlHttp();
+    xmlHttp.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            // note that you can check xmlHttp.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            transactions = JSON.parse(xmlHttp.responseText);
+            console.log(transactions)
+            console.log("heres the object;");
+            // we will change this stuff after we get the object
+            set_up_table(transactions)
+
+        }
+    };
+    xmlHttp.open("GET", 'get_transaction_history' , true);
+    xmlHttp.send();
+    // the transaction object will have { time, shares, stock_ticker, type , value} p
+//a={"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}
+//b={"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}
+    //set_up_table([  a,b])
+    </script>
+        {% endblock %}
+    </body>

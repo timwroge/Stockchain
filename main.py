@@ -134,6 +134,35 @@ def signout():
     flask.session['user'] = None
     return flask.redirect('/')
 
+# signs out the user, setting their session to None and redirecting to the home page
+@app.route('/transaction_history')
+def show_transaction_history():
+    return show_page("TransactionHistory.html", "Transaction History"  )
+
+@app.route('/get_transaction_history')
+def get_transaction_history():
+    return json.dumps([
+        {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}, \
+        {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 101}, \
+                ] )
+
+@app.route('/get_portfolio_positions')
+def get_porfolio_positions():
+    return json.dumps([
+        {"shares": 2, "stock_ticker": "TSLA"  , "type": "long"  , "value": "$200" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AVGO"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
+                ] )
+@app.route('/add_funds')
+def show_add_funds():
+    return show_page("AddFunds.html", "Add Funds"  )
 
 # when a user signs in, the username is in the session[user], so we can get it at any time
 def get_user():
