@@ -123,7 +123,7 @@
                 for (key in transaction) {
                     console.log(key)
                     if(key == "value" ) {
-                        totalPortfolioValue += transaction[key]
+                        totalPortfolioValue += parseFloat( transaction[key].replace("$", "") )
                     }
                     var entry = document.createElement('th')
                     set_data_member(entry, transaction[key], row)
