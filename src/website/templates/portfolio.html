@@ -158,7 +158,45 @@
     };
     xmlReq.open("GET", 'get_portfolio_positions' , true);
     xmlReq.send();
-    console.log("Generating transaction table" )
+
+    // get the funds that the user has
+    let xmlReq2 = createXmlHttp();
+    xmlReq2.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlReq2.readyState == 4 && xmlReq2.status == 200) {
+            // note that you can check xmlReq2.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            funds = JSON.parse(xmlReq2.responseText);
+            console.log(funds)
+            console.log("heres the object;");
+            // we will change this stuff after we get the object
+            document.getElementById("txtFundsSummary").value = funds
+
+        }
+    };
+    xmlReq2.open("GET", 'get_funds' , true);
+    xmlReq2.send();
+    // get another request
+    let xmlReq3 = createXmlHttp();
+    xmlReq3.onreadystatechange = function () {
+        console.log("Trying to get data");
+        if (xmlReq3.readyState == 4 && xmlReq3.status == 200) {
+            // note that you can check xmlReq3.status here for the HTTP response code
+            console.log("Got something!");
+            console.log(".. done getting data");
+            // check if it is not defined
+            funds = JSON.parse(xmlReq3.responseText);
+            console.log(funds)
+            console.log("heres the object;");
+            // we will change this stuff after we get the object
+            document.getElementById("txtValueSummary").value = funds
+
+        }
+    };
+    //xmlReq3.open("GET", '' , true);
+    //xmlReq3.send();
     // the transaction object will have { time, shares, stock_ticker, type , value} p
     </script>
 
