@@ -52,18 +52,6 @@
       		<input type="text" readonly class="form-control-plaintext" id="txtFundsSummary" value="0.00">
     	  </div>
   		</div>
-  		<div class="form-group row portfolio-row">
-    	  <label for="txtPositionsSummary" class="col-sm-5 col-form-label font-weight-bold">Total Positions:</label>
-    	  <div class="col-sm-7">
-      		<input type="text" readonly class="form-control-plaintext" id="txtPositionsSummary" value="0">
-    	  </div>
-  		</div>
-  		<div class="form-group row portfolio-row">
-    	  <label for="txtSharesSummary" class="col-sm-5 col-form-label font-weight-bold">Total Shares:</label>
-    	  <div class="col-sm-7">
-      		<input type="text" readonly class="form-control-plaintext" id="txtSharesSummary" value="0">
-    	  </div>
-  		</div>
 	  </form>
       <div class="mt-4">
           <!-- TradingView Widget BEGIN -->
@@ -125,6 +113,8 @@
                 break;
             }
             // make all other rows
+            let totalPortfolioValue = 0;
+
             for (var transaction_index in transactions) {
                 transaction= transactions[transaction_index] 
                 //    // Loop over the JSON array.
@@ -132,12 +122,16 @@
                 console.log(transaction)
                 for (key in transaction) {
                     console.log(key)
+                    if(key == "value" ) {
+                        totalPortfolioValue += transaction[key]
+                    }
                     var entry = document.createElement('th')
                     set_data_member(entry, transaction[key], row)
                 }
                 data_table.appendChild(row)
             }
             transaction_section.appendChild(data_table)
+            document.getElementById("txtValueSummary").value = totalPortfolioValue
     }
 
     let xmlReq = createXmlHttp();
