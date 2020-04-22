@@ -117,7 +117,7 @@ def buy_position(user, position):
                     "ticker": position['ticker'], \
                     "positionType" : 'Long', \
                     "type" : 'Buy', \
-                    "shares" : nShares, \
+                    "shares" : position['shares'] , \
                     "price" :  position['currVal']\
                     }
             add_history(user, history_dict)
