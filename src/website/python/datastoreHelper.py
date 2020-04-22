@@ -233,6 +233,52 @@ def sell_position(user, position):
             print("Adding $", earnings, " to users account")
             add_cash(user, str(earnings))
 
+#this will take a whole position passed in and pass back out the position with the actual short value I guess
+def get_short_value(user, position, current_price):
+     # get datastore client
+    client = get_client()
+
+    # want to sell shares amount of ticker stock positions that they own for shares*currVal
+
+    # before we do anything, we need to query the history table to find all the previous buys and sells of short positions
+    # need to do this because may have bought 3 sold 2 and then bought more, so each needs to be sold at correct price
+    q = client.query(kind='History')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', position['Ticker'])
+    q.add_filter('positionType', '=', "Short")
+    #q.order('-interactionTime')
+
+    res1 = list(q.fetch())
+
+    # this is a count for the amount it cost at buying
+    totalAmm = 0
+    totalShares = int(position['shares'])
+
+    if res1:
+        # then you look at the most recent by time and see if you have enough to sell just those and loop down while adding value!
+        for el in res1:
+            if totalShares > 0:
+                print(" interactionType" + el['interactionType'])
+                if el['interactionType'] == 'Buy' :
+                    print("buy")
+                    totalShares -= int(el['shares']) #idk why I have to do this???
+                    if totalShares >= 0 : 
+                        totalAmm += float(el['shares'])*el['price']
+                    else:
+                        totalAmm += (totalShares + (int(el['shares']))) * el['price']
+        # This computes the amount that the user profits from this transaction
+        print(totalAmm)
+        netVal = totalAmm - current_price*int(position['shares'])
+        print(netVal)
+    else:
+        print("nothing in query")
+        print(position['ticker'])
+        netVal = 0
+
+    return netVal
+
+
+
 def sell_short_position(user, position):
     # get datastore client
     client = get_client()
@@ -347,7 +393,11 @@ def get_positions(user):
         print(position) 
         current_stock = Stock(position['Ticker'])
         current_price = current_stock.getCurrentPrice()
-        total_price = current_price*position['shares']
+        if position['positionType'] == "Short" :
+            #call the find real value
+            total_price = get_short_value(user, position, current_price)
+        else:
+            total_price = current_price*position['shares']
         positions.append({
             "shares": position['shares'],
             "ticker": position['Ticker'],
