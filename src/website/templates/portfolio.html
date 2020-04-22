@@ -126,7 +126,16 @@
                         totalPortfolioValue += parseFloat( transaction[key].replace("$", "") )
                     }
                     var entry = document.createElement('th')
-                    set_data_member(entry, transaction[key], row)
+                    if(key == "ticker" ) {
+                        link = document.createElement('a')
+                        link.href = "/view_stock/" +transaction[key]
+                        link.innerText=transaction[key]
+                        entry.appendChild(link)
+                        row.appendChild(entry)
+                    }
+                    else{
+                        set_data_member(entry, transaction[key], row)
+                    } 
                 }
                 data_table.appendChild(row)
             }

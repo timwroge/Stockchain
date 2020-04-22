@@ -48,12 +48,17 @@ def createAcct():
 
 
 # route for the view stock / search results page
-@app.route('/view_stock', methods=[ 'POST', 'GET' ])
-def view_stock():
-    search = flask.request.args.get('search').upper()
-    s = Stock(search)
+@app.route('/view_stock/<stock_ticker>', methods=['GET' ])
+def view_stock(stock_ticker):
+    s = Stock(stock_ticker)
     # check and get the number of shares they have for this ticker (if they do) pass in can_sell
-    return show_page('AddPosition.html', ('Viewing ' + search), stock=search, is_valid=s.isValid(), curr_val=s.getCurrentPrice())
+    return show_page('AddPosition.html', ('Viewing ' + stock_ticker), stock=stock_ticker, is_valid=s.isValid(), curr_val=s.getCurrentPrice())
+
+# route for the view stock / search results page
+@app.route('/search_stock', methods=['POST', 'GET' ])
+def view_stock_search():
+    search = flask.request.args.get('search').upper()
+    return flask.redirect('/view_stock/' +search)
 
 
 # 'register' method that performs registration of user
