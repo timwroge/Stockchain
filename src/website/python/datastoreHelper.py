@@ -224,7 +224,7 @@ def get_history(user):
             "time" : historyItem['interactionTime'],
             "shares" : historyItem['shares'],
             "ticker" : historyItem['ticker'],
-            "type" : historyItem['interactionType'],
+            "type" : historyItem['type'],
             "value" : historyItem['price']
         })
 
@@ -256,6 +256,8 @@ def add_history(user, item):
         history['shares'] = item["shares"]
         # price of stock
         history['price'] = item["price"]
+
+        history['type'] = item["type"]
         # get datetime
         history['interactionTime'] = datetime.now()
 
