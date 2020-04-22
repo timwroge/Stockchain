@@ -112,6 +112,15 @@ def buy_position(user, position):
                 })
 
             client.put(pos)
+            history_dict = \
+                    { \
+                    "ticker": position['ticker'], \
+                    "positionType" : 'Long', \
+                    "type" : 'Buy', \
+                    "shares" : nShares, \
+                    "price" :  position['currVal']\
+                    }
+            add_history(user, history_dict)
 
             # make a call that removes the money they spent
             if(int(position['shares']) > 0):
@@ -161,6 +170,7 @@ def sell_position(user, position):
                         { \
                         "ticker": position['ticker'], \
                         "positionType" : 'Long', \
+                        "type" : 'sell', \
                         "shares" : nShares, \
                         "price" :  position['currVal']\
                         }
