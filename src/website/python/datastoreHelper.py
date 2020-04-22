@@ -156,6 +156,16 @@ def sell_position(user, position):
                 })
                 # write back
                 client.put(pos)
+                # ticker, positionType, shares, price
+                hisory_dict = \
+                        { \
+                        "ticker": position['ticker'], \
+                        "positionType" : 'Long', \
+                        "shares" : nShares, \
+                        "price" :  position['currVal']\
+                        }
+                add_history(user, history_dict) 
+
 
         #if nshares is 0, they sold all their shares, we can delete this position
         if(nShares == 0):
@@ -165,6 +175,8 @@ def sell_position(user, position):
         if(earnings > 0):
             print("Adding $", earnings, " to users account")
             add_cash(user, str(earnings))
+
+
 
 
 # get json array of positions for this user, to return to the portfolio page
@@ -237,13 +249,13 @@ def add_history(user, item):
         # User who owns the position (for query)
         history['username'] = user
         # the ticker
-        history['Ticker'] = item.ticker
+        history['Ticker'] = item["ticker"]
         # the positionType
-        history['positionType'] = item.positionType
+        history['positionType'] = item["positionType"]
         # number of shares
-        history['shares'] = item.shares
+        history['shares'] = item["shares"]
         # price of stock
-        history['price'] = item.price
+        history['price'] = item["price"]
         # get datetime
         history['interactionTime'] = datetime.now()
 
