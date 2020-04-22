@@ -209,7 +209,7 @@ def get_positions(user):
             "shares": position['shares'],
             "ticker": position['Ticker'],
             "type": position['positionType'],
-            "value": "${}".format(total_price)
+            "value": "${0:.2f}".format(total_price)
         })
     # value? -> value we need to get from stock data?
 
