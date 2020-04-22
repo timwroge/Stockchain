@@ -216,9 +216,9 @@ def add_item():
     if flask.request.form.get('buy'):
         # NEED TO CHECK THAT THEY CAN AFFORD THIS
         print("Buying ", shares, " shares of ", ticker, " at $", currVal)
-        if positionType == "buy" :
+        if positionType == "Buy" :
             datastoreHelper.buy_position(get_user(), position)
-        elif positionType == "short" :
+        elif positionType == "Short" :
             datastoreHelper.short_position(get_user(), position)
 
     # if they submitted the form via the sell shares button - SELL
