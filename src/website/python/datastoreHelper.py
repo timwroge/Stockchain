@@ -157,7 +157,7 @@ def sell_position(user, position):
                 # write back
                 client.put(pos)
                 # ticker, positionType, shares, price
-                hisory_dict = \
+                history_dict = \
                         { \
                         "ticker": position['ticker'], \
                         "positionType" : 'Long', \
