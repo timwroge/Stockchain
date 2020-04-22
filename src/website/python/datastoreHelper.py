@@ -170,8 +170,8 @@ def sell_position(user, position):
                         { \
                         "ticker": position['ticker'], \
                         "positionType" : 'Long', \
-                        "type" : 'sell', \
-                        "shares" : nShares, \
+                        "type" : 'Sell', \
+                        "shares" :  position['shares'], \
                         "price" :  position['currVal']\
                         }
                 add_history(user, history_dict) 
