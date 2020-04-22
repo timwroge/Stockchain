@@ -129,6 +129,45 @@ def buy_position(user, position):
         else:
             print("Insufficient funds")
 
+# adds a position for this user to the db
+def short_position(user, position):
+    # get datastore client
+    client = get_client()
+
+    with client.transaction():
+        # query to see if they have a position already
+        q = client.query(kind='Position')
+        q.add_filter('Username', '=', user)
+        q.add_filter('Ticker', '=', position['ticker'])
+        q.add_filter('positionType', '=', position['positionType'])
+
+        # get the matching user entity
+        results = list(q.fetch())
+        pos = None
+        cost = 0
+
+        print("Shorting a new position")
+        # if there is no existing position, we will create one
+        key = client.key('Position')
+        pos = datastore.Entity(key)
+        pos.update({
+            'Username': user,
+            'Ticker': position['ticker'],
+            'positionType': position['positionType'],
+            'shares': int(position['shares'])
+        })
+
+        client.put(pos)
+        history_dict = \
+                { \
+                "ticker": position['ticker'], \
+                "positionType" : 'Short', \
+                "type" : 'Short', \
+                "shares" : position['shares'] , \
+                "price" :  position['currVal']\
+                }
+        add_history(user, history_dict)
+
 
 # attempts a sell of the given position
 def sell_position(user, position):
