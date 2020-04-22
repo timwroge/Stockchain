@@ -249,7 +249,7 @@ def add_history(user, item):
         # User who owns the position (for query)
         history['username'] = user
         # the ticker
-        history['Ticker'] = item["ticker"]
+        history['ticker'] = item["ticker"]
         # the positionType
         history['positionType'] = item["positionType"]
         # number of shares
