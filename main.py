@@ -216,7 +216,9 @@ def add_item():
     if flask.request.form.get('buy'):
         # NEED TO CHECK THAT THEY CAN AFFORD THIS
         print("Buying ", shares, " shares of ", ticker, " at $", currVal)
-        if positionType == "Buy" :
+        #print(positionType)
+        #fixed buying cause this said buy... it took me too long to find this
+        if positionType == "Long" :
             datastoreHelper.buy_position(get_user(), position)
         elif positionType == "Short" :
             datastoreHelper.short_position(get_user(), position)
@@ -225,7 +227,11 @@ def add_item():
     if flask.request.form.get('sell'):
         # NEED TO CHECK IF THEY HAVE THE SHARES THEY WANT TO SELL
         print("Selling ", shares, " shares of ", ticker, " at $", currVal)
-        datastoreHelper.sell_position(get_user(), position)
+        if positionType == "Long" :
+            datastoreHelper.sell_position(get_user(), position)
+        elif positionType == "Short" :
+            datastoreHelper.sell_short_position(get_user(), position)
+        
 
     return flask.redirect('/dashboard')
 
