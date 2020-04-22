@@ -88,7 +88,6 @@ def buy_position(user, position):
         results = list(q.fetch())
         pos = None
         cost = int(position['shares']) * int(position['currVal'])
-
         # ensure that they have enough money
         if(cost <= json.loads(get_cash(user))):
             if results:
@@ -116,7 +115,7 @@ def buy_position(user, position):
                     { \
                     "ticker": position['ticker'], \
                     "positionType" : 'Long', \
-                    "type" : 'Buy', \
+                    "interactionType" : 'Buy', \
                     "shares" : position['shares'] , \
                     "price" :  position['currVal']\
                     }
@@ -145,24 +144,33 @@ def short_position(user, position):
         results = list(q.fetch())
         pos = None
         cost = 0
-
-        print("Shorting a new position")
-        # if there is no existing position, we will create one
-        key = client.key('Position')
-        pos = datastore.Entity(key)
-        pos.update({
-            'Username': user,
-            'Ticker': position['ticker'],
-            'positionType': position['positionType'],
-            'shares': int(position['shares'])
-        })
+        if results:
+            if results:
+                print("Buying more shares of an existing position")
+                # if there is an existing position, set the entity
+                pos = results[0]
+                nShares = int(position['shares']) + pos['shares']
+                pos.update({
+                    'shares': nShares
+                })
+        else:
+            print("Shorting a new position")
+            # if there is no existing position, we will create one
+            key = client.key('Position')
+            pos = datastore.Entity(key)
+            pos.update({
+                'Username': user,
+                'Ticker': position['ticker'],
+                'positionType': position['positionType'],
+                'shares': int(position['shares'])
+            })
 
         client.put(pos)
         history_dict = \
                 { \
                 "ticker": position['ticker'], \
                 "positionType" : 'Short', \
-                "type" : 'Short', \
+                "interactionType" : 'Buy', \
                 "shares" : position['shares'] , \
                 "price" :  position['currVal']\
                 }
@@ -209,7 +217,7 @@ def sell_position(user, position):
                         { \
                         "ticker": position['ticker'], \
                         "positionType" : 'Long', \
-                        "type" : 'Sell', \
+                        "interactionType" : 'Sell', \
                         "shares" :  position['shares'], \
                         "price" :  position['currVal']\
                         }
@@ -225,6 +233,102 @@ def sell_position(user, position):
             print("Adding $", earnings, " to users account")
             add_cash(user, str(earnings))
 
+def sell_short_position(user, position):
+    # get datastore client
+    client = get_client()
+
+    # want to sell shares amount of ticker stock positions that they own for shares*currVal
+
+    # before we do anything, we need to query the history table to find all the previous buys and sells of short positions
+    # need to do this because may have bought 3 sold 2 and then bought more, so each needs to be sold at correct price
+    q = client.query(kind='History')
+    q.add_filter('username', '=', user)
+    q.add_filter('ticker', '=', position['ticker'])
+    q.add_filter('positionType', '=', "Short")
+    #q.order('-interactionTime')
+
+    res1 = list(q.fetch())
+
+    # this is a count for the amount it cost at buying
+    totalAmm = 0
+    totalShares = int(position['shares'])
+
+    if res1:
+        # then you look at the most recent by time and see if you have enough to sell just those and loop down while adding value!
+        for el in res1:
+            if totalShares > 0:
+                print(" interactionType" + el['interactionType'])
+                if el['interactionType'] == 'Buy' :
+                    print("buy")
+                    totalShares -= int(el['shares']) #idk why I have to do this???
+                    if totalShares >= 0 : 
+                        totalAmm += float(el['shares'])*el['price']
+                    else:
+                        totalAmm += (totalShares + (int(el['shares']))) * el['price']
+        # This computes the amount that the user profits from this transaction
+        print(totalAmm)
+        netVal = totalAmm - position['currVal']*int(position['shares'])
+        print(netVal)
+    else:
+        print("nothing in query")
+        print(position['ticker'])
+        netVal = 0
+
+
+    with client.transaction():
+
+        # query to see if they own this position 
+        q = client.query(kind='Position')
+        q.add_filter('Username', '=', user)
+        q.add_filter('Ticker', '=', position['ticker'])
+        q.add_filter('positionType', '=', "Short")
+
+        # get the matching user entity
+        results = list(q.fetch())
+        earnings = 0
+        nShares = -1
+        pos = None
+
+        if results:
+            print("Selling shares of an existing position")
+            # if there is an existing position we can sell shares
+            pos = results[0]
+            if(pos['shares'] >= int(position['shares'])):
+                # extra check that they have enough shares - this should be verified already
+                # decrement amount of shares they have left, get earnings
+                nShares = int(pos['shares']) - int(position['shares'])
+                # update the position
+                pos.update({
+                    'shares': nShares
+                })
+               # write back
+                client.put(pos)
+                # ticker, positionType, shares, price
+                history_dict = \
+                        { \
+                        "ticker": position['ticker'], \
+                        "positionType" : 'Short', \
+                        "interactionType" : 'Sell', \
+                        "shares" :  int(position['shares']), \
+                        "price" :  float(position['currVal'])\
+                        }
+                add_history(user, history_dict) 
+
+                #if nshares is 0, they sold all their shares, we can delete this position
+                if(nShares == 0):
+                    print("Sold position has no more shares, deleting position")
+                    client.delete(pos.key)
+
+                # here
+                # may want to add caveat where if they are gonna go negative then just reduce to 0 dollars!
+                
+                print("Adding $", netVal, " to users account")
+                add_cash(user, str(netVal))
+        else:
+            print("Position does not exist, no shares to sell")
+
+        
+        
 
 
 
@@ -273,7 +377,8 @@ def get_history(user):
             "time" : historyItem['interactionTime'],
             "shares" : historyItem['shares'],
             "ticker" : historyItem['ticker'],
-            "type" : historyItem['type'],
+            "positionType" : historyItem['positionType'],
+            "interactionType" : historyItem['interactionType'],
             "value" : historyItem['price']
         })
 
@@ -286,6 +391,7 @@ def get_history(user):
 def add_history(user, item):
     # get datastore client
     client = get_client()
+    
 
     # idea is to use a transaction that either gets the entity or creates it if there is none
     with client.transaction():
@@ -306,11 +412,12 @@ def add_history(user, item):
         # price of stock
         history['price'] = item["price"]
 
-        history['type'] = item["type"]
+        history['interactionType'] = item["interactionType"]
         # get datetime
         history['interactionTime'] = datetime.now()
 
         # put item into datastore
+
         client.put(history)
 
 
