@@ -390,7 +390,6 @@ def get_positions(user):
 
     # for each Position fetched, add it to array
     for position in q.fetch():
-        print(position) 
         current_stock = Stock(position['Ticker'])
         current_price = current_stock.getCurrentPrice()
         if position['positionType'] == "Short" :
@@ -410,6 +409,31 @@ def get_positions(user):
     array_json = json.dumps(positions, indent=4) #, cls=dataClasses.ClothingEncoder)
     return array_json
 
+# get json array of positions for this user, to return to the portfolio page
+def get_portfolio_value(user):
+    # get datastore client
+    client = get_client()
+
+    q = client.query(kind='Position')
+    q.add_filter('Username', '=', user)
+
+    positions = []
+
+    # for each Position fetched, add it to array
+    total_value = 0
+    for position in q.fetch():
+        current_stock = Stock(position['Ticker'])
+        current_price = current_stock.getCurrentPrice()
+        if position['positionType'] == "Short" :
+            #call the find real value
+            total_price = get_short_value(user, position, current_price)
+        else:
+            total_price = current_price*position['shares']
+        total_value += total_price
+
+    # value? -> value we need to get from stock data?
+    # then we turn the entire array into JSON and send it to the client
+    return json.dumps(total_value)
 
 # gets all transactions for this user's transaction history
 def get_history(user):
@@ -422,7 +446,6 @@ def get_history(user):
     history = []
     # of positions fetched
     for historyItem in q.fetch():
-        print(historyItem)
         history.append({
             "time" : historyItem['interactionTime'],
             "shares" : historyItem['shares'],
@@ -433,7 +456,6 @@ def get_history(user):
         })
 
     array_json = json.dumps(history, indent=4, default=str)
-    print(array_json)
     return array_json
 
 

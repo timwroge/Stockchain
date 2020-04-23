@@ -199,6 +199,10 @@ def add_funds():
 def get_funds():
     return datastoreHelper.get_cash(get_user())
 
+# call to DB to get the amount of cash that this user has
+@app.route('/get_value_of_portfolio')
+def get_value_of_portfolio():
+    return datastoreHelper.get_portfolio_value(get_user())
 
 # method used to add a position into the db (buy or sell)
 @app.route('/add_position', methods=['POST'])
@@ -236,8 +240,6 @@ def add_item():
             datastoreHelper.sell_position(get_user(), position)
         elif positionType == "Short" :
             datastoreHelper.sell_short_position(get_user(), position)
-        
-
     return flask.redirect('/dashboard')
 
 
