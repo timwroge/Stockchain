@@ -155,28 +155,12 @@ def show_transaction_history():
 # call that requests users transaction history
 @app.route('/get_transaction_history')
 def get_transaction_history():
-    json.dumps([
-        {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 100}, \
-        {"time": 5, "shares": 2, "stock_ticker": "TSLA"  , "type": "buy"  , "value": 101}, \
-    ])
     return datastoreHelper.get_history(get_user())
 
 
 # call that requests users current positions
 @app.route('/get_portfolio_positions')
 def get_porfolio_positions():
-    json.dumps([
-        {"shares": 2, "stock_ticker": "TSLA"  , "type": "long"  , "value": "$200" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AVGO"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-        {"shares": 2, "stock_ticker": "AAPL"  , "type": "long"  , "value": "$100" }, \
-    ])
     return datastoreHelper.get_positions(get_user())
 
 
