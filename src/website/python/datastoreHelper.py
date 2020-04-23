@@ -272,7 +272,7 @@ def get_short_value(user, position, current_price):
         print(netVal)
     else:
         print("nothing in query")
-        print(position['ticker'])
+        #print(position['ticker'])
         netVal = 0
 
     return netVal
