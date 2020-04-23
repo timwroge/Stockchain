@@ -113,8 +113,6 @@
                 break;
             }
             // make all other rows
-            let totalPortfolioValue = 0;
-
             for (var transaction_index in transactions) {
                 transaction= transactions[transaction_index] 
                 //    // Loop over the JSON array.
@@ -122,9 +120,6 @@
                 console.log(transaction)
                 for (key in transaction) {
                     console.log(key)
-                    if(key == "value" ) {
-                        totalPortfolioValue += parseFloat( transaction[key].replace("$", "") )
-                    }
                     var entry = document.createElement('th')
                     if(key == "ticker" ) {
                         link = document.createElement('a')
@@ -140,7 +135,6 @@
                 data_table.appendChild(row)
             }
             transaction_section.appendChild(data_table)
-            document.getElementById("txtValueSummary").value = "$"+ totalPortfolioValue
     }
 
     let xmlReq = createXmlHttp();
@@ -161,6 +155,8 @@
     };
     xmlReq.open("GET", 'get_portfolio_positions' , true);
     xmlReq.send();
+    </script>
+    <script>
 
     // get the funds that the user has
     let xmlReq2 = createXmlHttp();
@@ -179,6 +175,8 @@
 
         }
     };
+    </script>
+    <script>
     xmlReq2.open("GET", 'get_funds' , true);
     xmlReq2.send();
     // get another request
@@ -190,16 +188,16 @@
             console.log("Got something!");
             console.log(".. done getting data");
             // check if it is not defined
-            funds = JSON.parse(xmlReq3.responseText);
-            console.log(funds)
+            pv = JSON.parse(xmlReq3.responseText);
+            console.log(pv)
             console.log("heres the object;");
             // we will change this stuff after we get the object
-            document.getElementById("txtValueSummary").value = funds
+            document.getElementById("txtValueSummary").value = "$"+ pv
 
         }
     };
-    //xmlReq3.open("GET", '' , true);
-    //xmlReq3.send();
+    xmlReq3.open("GET", '/get_value_of_portfolio' , true);
+    xmlReq3.send();
     // the transaction object will have { time, shares, stock_ticker, type , value} p
     </script>
 
