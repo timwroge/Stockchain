@@ -83,6 +83,19 @@
       <h1 class="mb-3 mr-3">Current Positions</h1>
       <div class="container" id="positions-container">
         <div id="transactions" >
+			<!-- Image loader -->
+        <div id='loader' style='display: none;'>
+<tr>
+<th>
+	  <img src='https://flevix.com/wp-content/uploads/2019/07/Facebook-Loading-Icons.gif' width='320' height='320'>
+</th>
+</tr>
+        </div>
+        <div id='error' style='display: none;'>
+            <p style="color:red"> There was an error trying to get your current positions. Try reloading the page.</p>
+             <a href="/" class="btn btn-primary">Reload</a>
+        </div>
+        <!-- Image loader -->
         </div>
 	</div>
     </div>
@@ -148,6 +161,7 @@
         console.log("Trying to get data");
         if (xmlReq.readyState == 4 && xmlReq.status == 200) {
             // note that you can check xmlReq.status here for the HTTP response code
+			document.getElementById("loader").style.display = "none";
             console.log("Got something!");
             console.log(".. done getting data");
             // check if it is not defined
@@ -156,11 +170,13 @@
             console.log("heres the object;");
             // we will change this stuff after we get the object
             set_up_table(transactions)
-
+		else{
+			document.getElementById("error").style.display = "block";
         }
     };
     xmlReq.open("GET", 'get_portfolio_positions' , true);
     xmlReq.send();
+	document.getElementById("loader").style.display =  "block";
 
     // get the funds that the user has
     let xmlReq2 = createXmlHttp();
@@ -176,31 +192,10 @@
             console.log("heres the object;");
             // we will change this stuff after we get the object
             document.getElementById("txtFundsSummary").value = "$"+ funds
-
-        }
+		}
     };
     xmlReq2.open("GET", 'get_funds' , true);
     xmlReq2.send();
-    // get another request
-    let xmlReq3 = createXmlHttp();
-    xmlReq3.onreadystatechange = function () {
-        console.log("Trying to get data");
-        if (xmlReq3.readyState == 4 && xmlReq3.status == 200) {
-            // note that you can check xmlReq3.status here for the HTTP response code
-            console.log("Got something!");
-            console.log(".. done getting data");
-            // check if it is not defined
-            funds = JSON.parse(xmlReq3.responseText);
-            console.log(funds)
-            console.log("heres the object;");
-            // we will change this stuff after we get the object
-            document.getElementById("txtValueSummary").value = funds
-
-        }
-    };
-    //xmlReq3.open("GET", '' , true);
-    //xmlReq3.send();
-    // the transaction object will have { time, shares, stock_ticker, type , value} p
     </script>
 
 <footer class="footer bg-dark">
