@@ -159,20 +159,22 @@
     let xmlReq = createXmlHttp();
     xmlReq.onreadystatechange = function () {
         console.log("Trying to get data");
-        if (xmlReq.readyState == 4 && xmlReq.status == 200) {
-            // note that you can check xmlReq.status here for the HTTP response code
-			document.getElementById("loader").style.display = "none";
-            console.log("Got something!");
-            console.log(".. done getting data");
-            // check if it is not defined
-            transactions = JSON.parse(xmlReq.responseText);
-            console.log(transactions)
-            console.log("heres the object;");
-            // we will change this stuff after we get the object
-            set_up_table(transactions)
-        }
-		else{
-			document.getElementById("error").style.display = "block";
+        if (xmlReq.readyState == 4 && ) {
+            if(xmlReq.status == 200) {
+                // note that you can check xmlReq.status here for the HTTP response code
+                document.getElementById("loader").style.display = "none";
+                console.log("Got something!");
+                console.log(".. done getting data");
+                // check if it is not defined
+                transactions = JSON.parse(xmlReq.responseText);
+                console.log(transactions)
+                console.log("heres the object;");
+                // we will change this stuff after we get the object
+                set_up_table(transactions)
+            }
+            else{
+                document.getElementById("error").style.display = "block";
+            }
         }
     };
     xmlReq.open("GET", 'get_portfolio_positions' , true);
