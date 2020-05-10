@@ -162,6 +162,7 @@
         if (xmlReq.readyState == 4 ) {
             if(xmlReq.status == 200) {
                 // note that you can check xmlReq.status here for the HTTP response code
+                document.getElementById("loader").style.display = "none";
                 console.log("Got something!");
                 console.log(".. done getting data");
                 // check if it is not defined
