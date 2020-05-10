@@ -159,7 +159,7 @@
     let xmlReq = createXmlHttp();
     xmlReq.onreadystatechange = function () {
         console.log("Trying to get data");
-        if (xmlReq.readyState == 4 && ) {
+        if (xmlReq.readyState == 4 ) {
             if(xmlReq.status == 200) {
                 // note that you can check xmlReq.status here for the HTTP response code
                 document.getElementById("loader").style.display = "none";
